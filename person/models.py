@@ -85,21 +85,26 @@ class Contact(AbstractBaseModel):
     # def get_absolute_url(self):
     #     return '%d/' % self.pk
 
+
 # employee 雇佣信息
 class Employee(AbstractBaseModel):
+    TYPE_CHOICES = (
+        ('0', '正式工'),
+        ('1', '人事代理'),
+        ('2', '劳务派遣'),
+        ('3', '外聘'),
+    )
     person = models.ForeignKey(Person, verbose_name=_("姓名"), on_delete=models.CASCADE,)
     start_work_date = models.DateField(_("参加工作时间"))
     enter_company_date = models.DateField(_("进入公司时间"))
+    type = models.CharField(_('用工形式'), max_length=10, choices=TYPE_CHOICES, default='0')
 
     class Meta:
         verbose_name = _('雇佣信息')
         verbose_name_plural = _('雇佣信息')
 
 
-
-
-
-# Technical titles
+# Technical titles职称
 class TechnicalTitles(AbstractBaseModel):
     TITLES_CHOICES = (
         ('0', '无'),
@@ -111,7 +116,12 @@ class TechnicalTitles(AbstractBaseModel):
     rating_time = models.DateField(_("评定时间"), blank=True, null=True)
     employed_time = models.DateField(_("聘用时间"), blank=True, null=True)
 
+    class Meta:
+        verbose_name = _('技术职称')
+        verbose_name_plural = _('技术职称')
 
+    def __str__(self):
+        return '%s' % self.person
 
 
 # Workrecord工作记录
