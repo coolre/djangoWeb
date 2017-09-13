@@ -17,12 +17,12 @@ class PersonResource(resources.ModelResource):
     class Meta:
         model = Person
         import_id_fields = ('id',)
-        fields = ('id', 'name', 'identification', 'gender')
+        fields = ('id', 'name', 'identification', 'gender', 'rationality', 'hometown')
 
 class PersonAdmin(ImportExportModelAdmin):
     """Customize the look of the auto-generated admin for the Member model"""
     fields = ('name', 'identification', 'gender', 'avatar')
-    list_display = ('name', 'identification', 'gender', 'avatar')
+    list_display = ('name', 'identification', 'gender', 'rationality', 'hometown','avatar')
     # list_editable = ['identification']
     # # inlines = [MobileInline, TelephoneInline, AddressInline, QqInline]
     list_filter = ('gender',)

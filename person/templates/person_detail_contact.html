@@ -11,8 +11,9 @@
               <dl class="row">
                 <dt class="col-sm-3">姓名:</dt>  <dd class="col-sm-9">{{ person.name }}</dd>
                 <dt class="col-sm-3">性别:</dt>  <dd class="col-sm-9">{{ person.get_gender_display }}</dd>
-                <dt class="col-sm-3">年龄:</dt>  <dd class="col-sm-9">{{ contact.email }}</dd>
-                <dt class="col-sm-3">籍贯:</dt>  <dd class="col-sm-9">{{ contact.qq }}</dd>
+                <dt class="col-sm-3">年龄:</dt>  <dd class="col-sm-9">{{ person.get_age }}</dd>
+                <dt class="col-sm-3">籍贯:</dt>  <dd class="col-sm-9">{{ person.hometown}}</dd>
+                <dt class="col-sm-3">民族:</dt>  <dd class="col-sm-9">{{ person.rationality }}</dd>
                 <dt class="col-sm-4">政治面貌:</dt>  <dd class="col-sm-8"> {{ contact.address }}</dd>
               </dl>
                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p></div>

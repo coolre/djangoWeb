@@ -1,6 +1,6 @@
 # coding=UTF-8
-import os
 from uuid import uuid4
+from datetime import date, datetime
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -9,7 +9,7 @@ from django.core.urlresolvers import reverse
 from djangoWeb.models import AbstractBaseModel
 from organization.models import (Company, Project, Department, Post)
 
-
+# 上传文件命名
 def file_rename(instance, filename):
     ext = filename.split('.')[-1]
     if instance.pk:
@@ -17,6 +17,11 @@ def file_rename(instance, filename):
     else:
         filename = '{}.{}'.format(uuid4().hex, ext)
     return format(filename)
+
+# 计算年龄
+def calculate_age(born):
+    today = date.today()
+    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
 
 # models Person.人员
@@ -34,6 +39,8 @@ class Person(AbstractBaseModel):
     name = models.CharField(_("姓名"), max_length=250)
     identification = models.CharField(_("身份证号"), max_length=18, unique=True)
     gender = models.CharField(_("性别"), max_length=10, choices=GENDER_CHOICES, default='male')
+    rationality = models.CharField(_("民族"), max_length=250)
+    hometown = models.CharField(_("籍贯"), max_length=250)
     avatar = models.ImageField(_("证件照"), upload_to=avatar_file_name, blank=True)
     # avatar = models.ImageField(upload_to=path_and_rename('person/avatars/'),)
 
@@ -41,13 +48,18 @@ class Person(AbstractBaseModel):
         verbose_name = _('人员')
         verbose_name_plural = _('人员')
 
-    # def birthday(self):
-    #     return int(self.identification[6:14])
-
-    # age = property(birthday)
     def __str__(self):
         return '%s' % self.name
         # return '%s <%s>' % (self.name, self.identification)
+
+    def get_birthday(self):
+        return int(self.identification[6:14])
+
+    def get_age(self):
+        born = str(self.identification[6:14])
+        birthday = datetime.strptime(born, "%Y%m%d")
+        age = calculate_age(birthday)
+        return age
 
     def get_person_name(self):
         return str(self.name)
