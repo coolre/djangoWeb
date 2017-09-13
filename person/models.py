@@ -104,24 +104,6 @@ class Employee(AbstractBaseModel):
         verbose_name_plural = _('雇佣信息')
 
 
-# Technical titles职称
-class TechnicalTitles(AbstractBaseModel):
-    TITLES_CHOICES = (
-        ('0', '无'),
-        ('1', '无固定期限'),
-    )
-    person = models.ForeignKey(Person, verbose_name=_("姓名"))
-    titles = models.CharField(_('职称等级'), max_length=10, choices=TITLES_CHOICES, default='0')
-    specialty = models.CharField(_('备注'), max_length=100, blank=True, null=True)
-    rating_time = models.DateField(_("评定时间"), blank=True, null=True)
-    employed_time = models.DateField(_("聘用时间"), blank=True, null=True)
-
-    class Meta:
-        verbose_name = _('技术职称')
-        verbose_name_plural = _('技术职称')
-
-    def __str__(self):
-        return '%s' % self.person
 
 
 # WorkRecord工作记录
@@ -183,7 +165,7 @@ class Certificate(AbstractBaseModel):
 
 
 class CertificateRecod(AbstractBaseModel):
-    paper = models.ForeignKey(Certificate, related_name='CertificateRecod', verbose_name=_("证件名称"))
+    certificate = models.ForeignKey(Certificate, verbose_name=_("证件名称"))
     borrow_people = models.CharField(_("借用人"), max_length=80)
     borrow_date = models.DateField(_("借用时间"), )
     return_date = models.DateField(_("归还时间"), blank=True, null=True)
@@ -195,7 +177,7 @@ class CertificateRecod(AbstractBaseModel):
         verbose_name_plural = _('证件使用记录')
 
     def __str__(self):
-        return '%s' % self.use_project
+        return '%s' % self.certificate
 
 
 # def Certificate_directory_path(instance, filename):
@@ -273,6 +255,37 @@ class Education(AbstractBaseModel):
     class Meta:
         verbose_name = _('学历情况')
         verbose_name_plural = _('学历情况')
+
+
+# Technical titles职称
+class TechnicalTitles(AbstractBaseModel):
+    TITLES_CHOICES = (
+        ('0', '无'),
+        ('1', '技术员'),
+        ('2', '助理工程师'),
+        ('3', '工程师'),
+        ('4', '高级工程师'),
+        ('5', '教授级高级工程师'),
+        ('6', '政工员'),
+        ('7', '政工师'),
+        ('8', '高级政工师'),
+        ('9', '经济员'),
+        ('10', '经济师'),
+        ('11', '高级经济师'),
+    )
+    person = models.ForeignKey(Person, verbose_name=_("姓名"))
+    titles = models.CharField(_('职称等级'), max_length=10, choices=TITLES_CHOICES, default='0')
+    specialty = models.CharField(_('专业'), max_length=255, blank=True, null=True)
+    rating_time = models.DateField(_("评定时间"), blank=True, null=True)
+    employed_time = models.DateField(_("聘用时间"), blank=True, null=True)
+    certificate = models.ForeignKey(Certificate, verbose_name=_("证件"), blank=True, null=True)
+
+    class Meta:
+        verbose_name = _('技术职称')
+        verbose_name_plural = _('技术职称')
+
+    def __str__(self):
+        return '%s' % self.person
 
 
 #  工资

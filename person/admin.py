@@ -9,7 +9,7 @@ from import_export.admin import ImportExportModelAdmin, ImportExportMixin, Impor
 
 # Register your models here.
 from .models import (Person, Contact, Contract, WorkRecord, CertificatesType, Certificate,
-                     CertificateRecod, CertificatePhoto, Salary, Education)
+                     CertificateRecod, CertificatePhoto, Salary, Education, TechnicalTitles)
 from organization.models import (Company, Project, Department, Post)
 
 
@@ -99,6 +99,27 @@ class ContractAdmin(ImportExportModelAdmin):
     search_fields = ('person__name',)
     resource_class = ContractResource
 
+#TechnicalTitles
+class TechnicalTitlesResource(resources.ModelResource):
+    person = fields.Field(
+        column_name='person',
+        attribute='person',
+        widget=ForeignKeyWidget(Person, 'name'))
+    titles = fields.Field(
+        attribute='get_titles_display',
+        column_name=_(u'titles'))
+
+    class Meta:
+        model = Contract
+        fields = ('id', 'person', 'titles', 'specialty', 'rating_time', 'employed_time')
+        export_order = ('id', 'person', 'titles', 'specialty', 'rating_time', 'employed_time')
+
+class TechnicalTitlesAdmin(ImportExportModelAdmin):
+    list_display = ('person', 'titles', 'specialty', 'rating_time', 'employed_time')
+    search_fields = ('person__name',)
+    raw_id_fields = ('certificate',)
+    resource_class = TechnicalTitlesResource
+
 
 # WorkRecord
 class WorkRecordResource(resources.ModelResource):
@@ -179,7 +200,9 @@ class CertificateAdmin(admin.ModelAdmin):
 
 #
 class CertificateRecodAdmin(admin.ModelAdmin):
-    list_display = ('person', 'borrow_people', 'borrow_date', 'return_date', 'use_project', 'use')
+    fields = ('certificate', 'borrow_people', 'borrow_date', 'return_date', 'use_project', 'use')
+    list_display = ('certificate', 'borrow_people', 'borrow_date', 'return_date', 'use_project', 'use')
+    raw_id_fields = ('certificate',)
 
 #
 class CertificatePhotoAdmin(admin.ModelAdmin):
@@ -191,6 +214,7 @@ admin.site.register(Person, PersonAdmin)
 admin.site.register(Contact, ContactAdmin)
 admin.site.register(Education, EducationAdmin)
 admin.site.register(Contract, ContractAdmin)
+admin.site.register(TechnicalTitles, TechnicalTitlesAdmin)
 admin.site.register(WorkRecord, WorkRecordAdmin)
 admin.site.register(CertificatesType, CertificatesTypeAdmin)
 admin.site.register(Certificate, CertificateAdmin)
