@@ -53,7 +53,7 @@ class PersonDetailView(DetailView):
 
 def contact(request):
     table = ContactTable(Contact.objects.all(), order_by='id')
-    RequestConfig(request, paginate={'per_page': 20}).configure(table)
+    RequestConfig(request, paginate={'per_page': 40}).configure(table)
     return render(request, 'person_contact.html', {'Contact': table})
 
 def contract(request):

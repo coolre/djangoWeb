@@ -85,24 +85,33 @@ class Contact(AbstractBaseModel):
     # def get_absolute_url(self):
     #     return '%d/' % self.pk
 
-# contract劳动合同
-class Contract(AbstractBaseModel):
-    TYPE_CHOICES = (
-        ('0', '有固定期限'),
-        ('1', '无固定期限'),
-    )
-    person = models.ForeignKey(Person, verbose_name=_("乙方"))
-    company = models.ForeignKey(Company, verbose_name=_("甲方"))
-    type = models.CharField(_('合同类型'), max_length=10, choices=TYPE_CHOICES, default='0')
-    Contract_start_date = models.DateField(_("开始时间"))
-    Contract_end_date = models.DateField(_("结束时间"), blank=True, null=True)
+# employee 雇佣信息
+class Employee(AbstractBaseModel):
+    person = models.ForeignKey(Person, verbose_name=_("姓名"), on_delete=models.CASCADE,)
+    start_work_date = models.DateField(_("参加工作时间"))
+    enter_company_date = models.DateField(_("进入公司时间"))
 
     class Meta:
-        verbose_name = _('劳动合同')
-        verbose_name_plural = _('劳动合同')
+        verbose_name = _('雇佣信息')
+        verbose_name_plural = _('雇佣信息')
 
-    def __str__(self):
-        return '%s' % self.person
+
+
+
+
+# Technical titles
+class TechnicalTitles(AbstractBaseModel):
+    TITLES_CHOICES = (
+        ('0', '无'),
+        ('1', '无固定期限'),
+    )
+    person = models.ForeignKey(Person, verbose_name=_("姓名"))
+    titles = models.CharField(_('职称等级'), max_length=10, choices=TITLES_CHOICES, default='0')
+    specialty = models.CharField(_('备注'), max_length=100, blank=True, null=True)
+    rating_time = models.DateField(_("评定时间"), blank=True, null=True)
+    employed_time = models.DateField(_("聘用时间"), blank=True, null=True)
+
+
 
 
 # Workrecord工作记录
@@ -205,6 +214,27 @@ class CertificatePhoto(AbstractBaseModel):
     def __str__(self):
         return '%s' % self.name
 
+# contract劳动合同
+class Contract(AbstractBaseModel):
+    TYPE_CHOICES = (
+        ('0', '有固定期限'),
+        ('1', '无固定期限'),
+    )
+    person = models.ForeignKey(Person, verbose_name=_("乙方"))
+    company = models.ForeignKey(Company, verbose_name=_("甲方"))
+    type = models.CharField(_('合同类型'), max_length=10, choices=TYPE_CHOICES, default='0')
+    Contract_start_date = models.DateField(_("开始时间"))
+    Contract_end_date = models.DateField(_("结束时间"), blank=True, null=True)
+    photo = models.ForeignKey(Certificate, verbose_name=_("合同扫描件"), blank=True, null=True)
+
+    class Meta:
+        verbose_name = _('劳动合同')
+        verbose_name_plural = _('劳动合同')
+
+    def __str__(self):
+        return '%s' % self.person
+
+
 # Education学历
 class Education(AbstractBaseModel):
     LEVEL_CHOICES = (
@@ -226,7 +256,7 @@ class Education(AbstractBaseModel):
     School = models.CharField(_('学校'), max_length=255, blank=True, null=True)
     major = models.CharField(_('专业'), max_length=255, blank=True, null=True)
     type = models.CharField(_('类型'), max_length=10, choices=TYPE_CHOICES, blank=True, )
-    length = models.CharField(_('年限'), max_length=255, blank=True, null=True)
+    length = models.CharField(_('年制'), max_length=255, blank=True, null=True)
     graduation_date = models.DateField(_("毕业时间"), blank=True, null=True)
     certificate = models.ForeignKey(Certificate, verbose_name=_("证件"), blank=True, null=True)
 

@@ -9,7 +9,7 @@ class ContactTable(tables.Table):
 
     class Meta:
         model = Contact
-        attrs = {'class': 'table table-bordered table-striped table-hover'}
+        attrs = {'class': 'table table-sm table-hover'}
         exclude = ('created_at', 'updated_at', 'address', 'state')
         # template = 'django_tables2/bootstrap.html'
 

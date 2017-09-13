@@ -119,8 +119,8 @@ class WorkrecordResource(resources.ModelResource):
         attribute='department',
         widget=ForeignKeyWidget(Department, 'name'))
     post = fields.Field(
-        column_name='Post',
-        attribute='Post',
+        column_name='post',
+        attribute='post',
         widget=ForeignKeyWidget(Post, 'name'))
 
     class Meta:
@@ -161,6 +161,7 @@ class CertificatesTypeAdmin(admin.ModelAdmin):
     list_display = ('name', 'type', 'issue')
 
 
+# CertificateAdmin
 class CertificatePhotoInline(admin.TabularInline):
     model = CertificatePhoto
     extra = 1
