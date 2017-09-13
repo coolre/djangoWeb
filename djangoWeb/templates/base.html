@@ -1,0 +1,45 @@
+{% extends 'bootstrap.html' %}
+
+{% load bootstrap4 %}
+
+
+
+{% block bootstrap4_extra_head %}
+<!-- Custom styles for this template -->
+<link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://getbootstrap.com/docs/4.0/examples/dashboard/dashboard.css" rel="stylesheet">
+
+
+<!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <!--<script src="https://getbootstrap.com/dist/js/vendor/popper.min.js"></script>-->
+    <script src="https://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!--<script src="https://getbootstrap.com/dist/js/ie10-viewport-bug-workaround.js"></script>-->
+
+{% for jsfile_name in script_list %}
+    <script src="{{host}}/{{jsfile_name}}.js"></script>
+    {% endfor %}
+
+{% endblock %}
+
+
+
+{% block bootstrap4_content %}
+
+{% include "base_navbar.html" %}
+
+ <div class="container-fluid">
+        <div class="row">
+        {% include "base_nav_sidebar.html" %}
+
+        <!--<h1>{% block title %}(no title){% endblock %}</h1>-->
+         <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+        {% block content %}(no content){% endblock %}
+
+            <p>&copy; Company 2014 This is <em>bootstrap3</em> for <strong>Django</strong>.</p>
+        </main>
+    </div>
+</div>
+{% endblock %}

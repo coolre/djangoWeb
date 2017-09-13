@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load render_table from django_tables2 %}
+{% bootstrap_css %}
+
+{% block title %}人力资源{% endblock %}
+
+
+{% block content %}
+<!--<div id="id_echarts_container" style="height:3000px;"></div>-->
+{{myechart|safe}}
+<!--<script type="text/javascript">-->
+    <!--$(document).ready(function () {-->
+        <!--var mChart = echarts.init(document.getElementById('id_echarts_container'));-->
+        <!--$.ajax({-->
+            <!--url: '{% url 'SalaryBarView' %}',-->
+            <!--type: "GET",-->
+            <!--dataType: "json"-->
+        <!--}).done(function (data) {-->
+            <!--mChart.setOption(data);-->
+        <!--});-->
+    <!--});-->
+<!--</script>-->
+
+{% endblock %}

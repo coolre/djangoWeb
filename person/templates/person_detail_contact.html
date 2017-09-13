@@ -1,0 +1,50 @@
+{% load static %}
+
+<div class="card-group">
+  <div class="card" >
+      <div class="card-body row">
+          <div class="col-sm-4">
+           <a href="{{ MEDIA_URL }}{{ person.avatar }}">
+               <img class="card-img-left" src="{{ MEDIA_URL }}{{ person.avatar }}"  width="148" height="206" ></a></div>
+           <div class="col-sm-8">
+              <h4 class="card-title">基本信息</h4>
+              <dl class="row">
+                <dt class="col-sm-3">姓名:</dt>  <dd class="col-sm-9">{{ person.name }}</dd>
+                <dt class="col-sm-3">性别:</dt>  <dd class="col-sm-9">{{ person.get_gender_display }}</dd>
+                <dt class="col-sm-3">年龄:</dt>  <dd class="col-sm-9">{{ contact.email }}</dd>
+                <dt class="col-sm-3">籍贯:</dt>  <dd class="col-sm-9">{{ contact.qq }}</dd>
+                <dt class="col-sm-4">政治面貌:</dt>  <dd class="col-sm-8"> {{ contact.address }}</dd>
+              </dl>
+               <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">联系方式：</h4>
+        <dl class="row">
+            {% for contact in contact_list %}
+            <dt class="col-sm-3">手机:</dt>  <dd  class="col-sm-9">{{ contact.mobile }}</dd>
+            <dt class="col-sm-3">固定电话:</dt>  <dd class="col-sm-4">{{ contact.telephone }}</dd>
+            <dd class="col-sm-3"><strong>小号:</strong></dd>
+                <dd class="col-sm-2">{{ contact.telephone_short }}</dd>
+            <dt class="col-sm-3">邮箱:</dt>  <dd class="col-sm-9">{{ contact.email }}</dd>
+            <dt class="col-sm-3">QQ:</dt>  <dd class="col-sm-9">{{ contact.em }}</dd>
+            <dt class="col-sm-3">住址:</dt>  <dd class="col-sm-9"><address> {{ contact.address }} </address></dd>
+            {% endfor %}
+            </dl>
+
+
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+  <div class="card">
+
+    <div class="card-body">
+      <h4 class="card-title">Card title</h4>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+
+{% block title %}人力资源{% endblock %}
+
+
+{% block content %}
+
+           <h2 class="sub-header">人员分布：Section title</h2>
+          <div class="table-responsive">
+              {% for persons in object_list %}
+            <li>{{ persons.name }}</li>
+        {% endfor %}
+          </div>
+
+{% endblock %}

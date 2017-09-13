@@ -1,0 +1,29 @@
+<div class="bs-callout bs-callout-warning">
+
+            <dl class="dl-horizontal">
+                <table class="table table-hover table-condensed">
+                    <caption>工作经历：</caption>
+                      <thead>
+                        <tr>
+                          <th>时间：</th>
+                          <th>公司</th>
+                          <th>项目</th>
+                          <th>部门</th>
+                          <th>岗位</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                       {% for workrecord in workrecord_list %}
+                        <tr>
+                            <td> {{ workrecord.job_start_date }} --  {{ workrecord.job_end_date }}</td>
+                            <td>{{ workrecord.company }}</td>
+                            <td>{{ workrecord.project }}</td>
+                            <td>{{ workrecord.department }}</td>
+                            <td>{{ workrecord.Post }}</td>
+                        </tr>
+                       {% endfor %}
+                      </tbody>
+                </table>
+            </dl>
+
+          </div>

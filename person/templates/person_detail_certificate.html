@@ -1,0 +1,31 @@
+<div class="bs-callout bs-callout-warning">
+
+    <dl class="dl-horizontal">
+        <table class="table table-condensed">
+        <caption>持证情况：</caption>
+        <thead>
+        <tr>
+
+        <th>证件名称</th>
+        <th>发证时间</th>
+        <th>注册时间</th>
+        <th>到期时间</th>
+            <th>用处</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for certificate in certificate_list %}
+        <tr>
+
+        <td><a href="{% url 'certificate_detail' certificate.id %}">{{ certificate.certificates_type }}</a></td>
+        <td>{{ certificate.issue_date }}</td>
+        <td>{{ certificate.reg_date }}</td>
+        <td>{{ certificate.expiry_date }}</td>
+            <td>使用情况</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+    </dl>
+
+</div>

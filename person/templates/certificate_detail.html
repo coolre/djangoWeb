@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% bootstrap_css %}
+
+{% block title %}人力资源{% endblock %}
+
+
+{% block content %}
+
+      <h2 class="sub-header"><small>证书编号： {{ Certificate.id }}</small></h2>
+
+
+<div class="row">
+    {% for certificatePhoto in certificate_photo %}
+  <div class="col-sm-6 col-md-3">
+    <div class="thumbnail">
+      <img src="{{ MEDIA_URL }}{{ certificatePhoto.photo }}" >
+        {{ certificatePhoto.name }}
+    </div>
+  </div>
+     {% endfor %}
+</div>
+
+<!--<blockquote>-->
+  <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>-->
+  <!--<footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>-->
+<!--</blockquote>-->
+    <div class="bs-callout bs-callout-warning">
+<table class="table">
+        <caption>证件信息：</caption>
+        <thead>
+        <tr>
+        <th>姓名</th>
+        <th>证件名称</th>
+        <th>发证日期</th>
+        <th>注册日期</th>
+        <th>有效期</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+
+        <td>{{ Certificate.person }}</td>
+        <td>{{ Certificate.certificates_type }}</td>
+        <td>{{ Certificate.issue_date }}</td>
+        <td>{{ certificate_record.reg_date }}</td>
+        <td>{{ certificate_record.expiry_date }}</td>
+
+        </tr>
+
+        </tbody>
+        </table>
+</div>
+
+<div class="table-responsive">
+
+   {% include "certificate_detail_certificaterecod.html" %}
+
+</div>
+
+<!--
+bs-callout-info
+bs-callout-danger
+bs-callout-warning
+-->
+
+{% endblock %}
