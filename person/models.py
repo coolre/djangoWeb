@@ -81,14 +81,16 @@ class Education(AbstractBaseModel):
     TYPE_CHOICES = (
         ('0', '全日制'),
         ('1', '继续教育'),
+        ('2', '其他'),
     )
     person = models.ForeignKey(Person, verbose_name=_("姓名"), on_delete=models.CASCADE, )
     level = models.CharField(_('学历'), max_length=10, choices=LEVEL_CHOICES, default='0')
     School = models.CharField(_('学校'), max_length=255, blank=True, null=True)
     major = models.CharField(_('专业'), max_length=255, blank=True, null=True)
-    type = models.CharField(_('类型'), max_length=10, choices=TYPE_CHOICES, default='0')
+    type = models.CharField(_('类型'), max_length=10, choices=TYPE_CHOICES, blank=True,)
     length = models.CharField(_('年限'), max_length=255, blank=True, null=True)
     graduation_date = models.DateField(_("毕业时间"), blank=True, null=True)
+
 
     class Meta:
         verbose_name = _('学历情况')
@@ -139,7 +141,7 @@ class Workrecord(AbstractBaseModel):
     company = models.ForeignKey(Company, verbose_name=_("公司"))
     project = models.ForeignKey(Project, verbose_name=_("项目部"))
     department = models.ForeignKey(Department, verbose_name=_("部门"))
-    Post = models.ForeignKey(Post, verbose_name=_("岗位"))
+    post = models.ForeignKey(Post, verbose_name=_("岗位"))
     job_start_date = models.DateField(_("开始时间"))
     job_end_date = models.DateField(_("结束时间"), blank=True, null=True)
     # position = models.CharField(max_length=64)
@@ -218,7 +220,7 @@ class CertificatePhoto(AbstractBaseModel):
 
     def certificate_file_name(instance, filename):
         new_name = file_rename(instance, filename)
-        person_id =  instance.paper.person.id
+        person_id = instance.paper.person.id
         certificates_type_id = instance.paper.certificates_type.id
         return 'person/%s/certificate/%s_%s' % (person_id, certificates_type_id, new_name)
 
