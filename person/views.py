@@ -13,7 +13,7 @@ from django_tables2 import RequestConfig
 from pyecharts import Bar
 
 from djangoWeb.echarts import EchartsView
-from .models import Person, Contact, Contract, Workrecord, Certificate, CertificateRecod, CertificatePhoto, Salary
+from .models import Person, Contact, Contract, WorkRecord, Certificate, CertificateRecod, CertificatePhoto, Salary
 from .tables import ContactTable, ContractTable, WorkrecordTable, CertificateTable
 
 
@@ -45,7 +45,7 @@ class PersonDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(PersonDetailView, self).get_context_data(**kwargs)
         context['contact_list'] = Contact.objects.filter(person_id=self.kwargs['person_id'])
-        context['workrecord_list'] = Workrecord.objects.filter(person_id=self.kwargs['person_id'])
+        context['workrecord_list'] = WorkRecord.objects.filter(person_id=self.kwargs['person_id'])
         context['certificate_list'] = Certificate.objects.filter(person_id=self.kwargs['person_id'])
         # print(context)
         return context
@@ -62,7 +62,7 @@ def contract(request):
     return render(request, 'person_contract.html', {'Contract': table})
 
 def workrecord(request):
-    table = WorkrecordTable(Workrecord.objects.all(), order_by='id')
+    table = WorkrecordTable(WorkRecord.objects.all(), order_by='id')
     RequestConfig(request, paginate={'per_page': 20}).configure(table)
     return render(request, 'person_workrecord.html', {'Workrecord': table})
 

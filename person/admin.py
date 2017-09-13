@@ -8,7 +8,7 @@ from import_export.widgets import ForeignKeyWidget
 from import_export.admin import ImportExportModelAdmin, ImportExportMixin, ImportMixin, ExportActionModelAdmin
 
 # Register your models here.
-from .models import (Person, Contact, Contract, Workrecord, CertificatesType, Certificate,
+from .models import (Person, Contact, Contract, WorkRecord, CertificatesType, Certificate,
                      CertificateRecod, CertificatePhoto, Salary, Education)
 from organization.models import (Company, Project, Department, Post)
 
@@ -100,8 +100,8 @@ class ContractAdmin(ImportExportModelAdmin):
     resource_class = ContractResource
 
 
-# Workrecord
-class WorkrecordResource(resources.ModelResource):
+# WorkRecord
+class WorkRecordResource(resources.ModelResource):
     person = fields.Field(
         column_name='person',
         attribute='person',
@@ -124,15 +124,15 @@ class WorkrecordResource(resources.ModelResource):
         widget=ForeignKeyWidget(Post, 'name'))
 
     class Meta:
-        model = Workrecord
+        model = WorkRecord
         fields = ('id',  'person', 'company', 'project', 'department', 'post', 'job_start_date', 'job_end_date')
         export_order = ('id', 'person', 'company', 'project', 'department', 'post', 'job_start_date', 'job_end_date')
 
-class WorkrecordAdmin(ImportExportModelAdmin):
+class WorkRecordAdmin(ImportExportModelAdmin):
     # list_display = ('person', 'company', 'project', 'department', 'Post', 'job_start_date', 'job_end_date')
     list_display = ('person', 'company', 'project', 'department', 'post', 'job_start_date', 'job_end_date')
     search_fields = ('person__name',)
-    resource_class = WorkrecordResource
+    resource_class = WorkRecordResource
 
 
 # Salary
@@ -191,7 +191,7 @@ admin.site.register(Person, PersonAdmin)
 admin.site.register(Contact, ContactAdmin)
 admin.site.register(Education, EducationAdmin)
 admin.site.register(Contract, ContractAdmin)
-admin.site.register(Workrecord, WorkrecordAdmin)
+admin.site.register(WorkRecord, WorkRecordAdmin)
 admin.site.register(CertificatesType, CertificatesTypeAdmin)
 admin.site.register(Certificate, CertificateAdmin)
 admin.site.register(CertificateRecod)

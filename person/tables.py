@@ -1,6 +1,6 @@
 # coding: utf-8
 import django_tables2 as tables
-from .models import Contact, Contract,  Workrecord, Certificate
+from .models import Contact, Contract,  WorkRecord, Certificate
 
 
 class ContactTable(tables.Table):
@@ -32,7 +32,7 @@ class WorkrecordTable(tables.Table):
     # name = tables.LinkColumn()
 
     class Meta:
-        model = Workrecord
+        model = WorkRecord
         attrs = {'class': 'table table-bordered table-striped table-hover'}
         exclude = ('created_at', 'updated_at', 'state')
         # template = 'django_tables2/bootstrap.html'person

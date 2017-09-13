@@ -124,8 +124,8 @@ class TechnicalTitles(AbstractBaseModel):
         return '%s' % self.person
 
 
-# Workrecord工作记录
-class Workrecord(AbstractBaseModel):
+# WorkRecord工作记录
+class WorkRecord(AbstractBaseModel):
     person = models.ForeignKey(Person, verbose_name=_("姓名"))
     company = models.ForeignKey(Company, verbose_name=_("公司"))
     project = models.ForeignKey(Project, verbose_name=_("项目部"))
