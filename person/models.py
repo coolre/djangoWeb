@@ -56,9 +56,8 @@ class Person(AbstractBaseModel):
         return int(self.identification[6:14])
 
     def get_age(self):
-        born = str(self.identification[6:14])
-        birthday = datetime.strptime(born, "%Y%m%d")
-        age = calculate_age(birthday)
+        born = datetime.strptime(str(self.identification[6:14]), "%Y%m%d")
+        age = calculate_age(born)
         return age
 
     def get_person_name(self):
@@ -67,6 +66,34 @@ class Person(AbstractBaseModel):
     def get_absolute_url(self):
         return reverse("detail", args=[self.id])
         # return '%d/' % self.pk
+
+# Education学历
+class Education(AbstractBaseModel):
+    LEVEL_CHOICES = (
+        ('0', '无'),
+        ('1', '高中'),
+        ('2', '中(职)专'),
+        ('3', '大专'),
+        ('4', '本科'),
+        ('5', '硕士研究生'),
+        ('6', '博士'),
+    )
+    TYPE_CHOICES = (
+        ('0', '全日制'),
+        ('1', '继续教育'),
+    )
+    person = models.ForeignKey(Person, verbose_name=_("姓名"), on_delete=models.CASCADE, )
+    level = models.CharField(_('学历'), max_length=10, choices=LEVEL_CHOICES, default='0')
+    School = models.CharField(_('学校'), max_length=255, blank=True, null=True)
+    major = models.CharField(_('专业'), max_length=255, blank=True, null=True)
+    type = models.CharField(_('类型'), max_length=10, choices=TYPE_CHOICES, default='0')
+    length = models.CharField(_('年限'), max_length=255, blank=True, null=True)
+    graduation_date = models.DateField(_("毕业时间"), blank=True, null=True)
+
+    class Meta:
+        verbose_name = _('学历情况')
+        verbose_name_plural = _('学历情况')
+
 
 
 # contact联系方式
