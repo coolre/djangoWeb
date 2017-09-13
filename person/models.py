@@ -67,36 +67,6 @@ class Person(AbstractBaseModel):
         return reverse("detail", args=[self.id])
         # return '%d/' % self.pk
 
-# Education学历
-class Education(AbstractBaseModel):
-    LEVEL_CHOICES = (
-        ('0', '无'),
-        ('1', '高中'),
-        ('2', '中(职)专'),
-        ('3', '大专'),
-        ('4', '本科'),
-        ('5', '硕士研究生'),
-        ('6', '博士'),
-    )
-    TYPE_CHOICES = (
-        ('0', '全日制'),
-        ('1', '继续教育'),
-        ('2', '其他'),
-    )
-    person = models.ForeignKey(Person, verbose_name=_("姓名"), on_delete=models.CASCADE, )
-    level = models.CharField(_('学历'), max_length=10, choices=LEVEL_CHOICES, default='0')
-    School = models.CharField(_('学校'), max_length=255, blank=True, null=True)
-    major = models.CharField(_('专业'), max_length=255, blank=True, null=True)
-    type = models.CharField(_('类型'), max_length=10, choices=TYPE_CHOICES, blank=True,)
-    length = models.CharField(_('年限'), max_length=255, blank=True, null=True)
-    graduation_date = models.DateField(_("毕业时间"), blank=True, null=True)
-
-
-    class Meta:
-        verbose_name = _('学历情况')
-        verbose_name_plural = _('学历情况')
-
-
 
 # contact联系方式
 class Contact(AbstractBaseModel):
@@ -235,7 +205,37 @@ class CertificatePhoto(AbstractBaseModel):
     def __str__(self):
         return '%s' % self.name
 
+# Education学历
+class Education(AbstractBaseModel):
+    LEVEL_CHOICES = (
+        ('0', '无'),
+        ('1', '高中'),
+        ('2', '中(职)专'),
+        ('3', '大专'),
+        ('4', '本科'),
+        ('5', '硕士研究生'),
+        ('6', '博士'),
+    )
+    TYPE_CHOICES = (
+        ('0', '全日制'),
+        ('1', '继续教育'),
+        ('2', '其他'),
+    )
+    person = models.ForeignKey(Person, verbose_name=_("姓名"), on_delete=models.CASCADE, )
+    level = models.CharField(_('学历'), max_length=10, choices=LEVEL_CHOICES, default='0')
+    School = models.CharField(_('学校'), max_length=255, blank=True, null=True)
+    major = models.CharField(_('专业'), max_length=255, blank=True, null=True)
+    type = models.CharField(_('类型'), max_length=10, choices=TYPE_CHOICES, blank=True, )
+    length = models.CharField(_('年限'), max_length=255, blank=True, null=True)
+    graduation_date = models.DateField(_("毕业时间"), blank=True, null=True)
+    certificate = models.ForeignKey(Certificate, verbose_name=_("证件"), blank=True, null=True)
 
+    class Meta:
+        verbose_name = _('学历情况')
+        verbose_name_plural = _('学历情况')
+
+
+#  工资
 class Salary(AbstractBaseModel):
     TYPE_CHOICES = (
         ('1', '月度工资'),

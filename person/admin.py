@@ -56,6 +56,7 @@ class EducationResource(resources.ModelResource):
 class EducationAdmin(ImportExportModelAdmin):
     list_display = ('person', 'level', 'School', 'major', 'type', 'length', 'graduation_date',)
     search_fields = ('person__name',)
+    raw_id_fields = ('certificate',)
     resource_class = EducationResource
 
 
@@ -172,6 +173,7 @@ class CertificateAdmin(admin.ModelAdmin):
     fields = ('person', ('certificates_type', 'issue_date', 'reg_date', 'expiry_date'))
     inlines = [CertificatePhotoInline, CertificateRecodInline]
     raw_id_fields = ('person',)
+    search_fields = ('person__name',)
 
 
 #
