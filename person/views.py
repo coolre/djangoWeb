@@ -80,8 +80,8 @@ class CertificateDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(CertificateDetailView, self).get_context_data(**kwargs)
-        context['certificate_record_list'] = CertificateRecod.objects.filter(paper_id=self.kwargs['Certificate_id'])
-        context['certificate_photo'] = CertificatePhoto.objects.filter(paper_id=self.kwargs['Certificate_id'])
+        context['certificate_record_list'] = CertificateRecod.objects.filter(certificate_id=self.kwargs['Certificate_id'])
+        context['certificate_photo'] = CertificatePhoto.objects.filter(certificate_id=self.kwargs['Certificate_id'])
         # context['certificate_list'] = Certificate.objects.filter(person_id=self.kwargs['person_id'])
         # print(context)
         return context

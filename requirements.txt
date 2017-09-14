@@ -1,6 +1,6 @@
-Django==1.11.4
-django-bootstrap4
+Django==1.11.5
+django-bootstrap4==0.0.1
 django-import-export==0.5.1
 django-tables2==1.10.0
-treebeard
-pyecharts==0.2.1
+django-treebeard==4.1.2
+pyecharts==0.2.4

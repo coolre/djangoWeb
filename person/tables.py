@@ -20,7 +20,7 @@ class ContractTable(tables.Table):
 
     class Meta:
         model = Contract
-        attrs = {'class': 'table table-bordered table-striped table-hover'}
+        attrs = {'class': 'table   table-sm table-hover'}
         exclude = ('created_at', 'updated_at','state')
         # template = 'django_tables2/bootstrap.html'
 
@@ -33,7 +33,7 @@ class WorkrecordTable(tables.Table):
 
     class Meta:
         model = WorkRecord
-        attrs = {'class': 'table table-bordered table-striped table-hover'}
+        attrs = {'class': 'table table-sm table-hover'}
         exclude = ('created_at', 'updated_at', 'state')
         # template = 'django_tables2/bootstrap.html'person
 
@@ -44,6 +44,6 @@ class CertificateTable(tables.Table):
 
     class Meta:
         model = Certificate
-        attrs = {'class': 'table table-bordered table-striped table-hover'}
+        attrs = {'class': 'table table-bordered table-sm table-hover'}
         exclude = ('created_at', 'updated_at', 'state')
         # template = 'django_tables2/bootstrap.html'person

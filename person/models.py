@@ -191,11 +191,11 @@ class CertificatePhoto(AbstractBaseModel):
 
     def certificate_file_name(instance, filename):
         new_name = file_rename(instance, filename)
-        person_id = instance.paper.person.id
-        certificates_type_id = instance.paper.certificates_type.id
+        person_id = instance.certificate.person.id
+        certificates_type_id = instance.certificate.certificates_type.id
         return 'person/%s/certificate/%s_%s' % (person_id, certificates_type_id, new_name)
 
-    paper = models.ForeignKey(Certificate, related_name='CertificatePhoto', verbose_name=_("证件名称"))
+    certificate = models.ForeignKey(Certificate, related_name='CertificatePhoto', verbose_name=_("证件名称"))
     name = models.CharField(_("图片说明"), max_length=100, blank=True, null=True)
     photo = models.ImageField(_("图片"), upload_to=certificate_file_name,)
 
@@ -250,7 +250,7 @@ class Education(AbstractBaseModel):
     type = models.CharField(_('类型'), max_length=10, choices=TYPE_CHOICES, blank=True, )
     length = models.CharField(_('年制'), max_length=255, blank=True, null=True)
     graduation_date = models.DateField(_("毕业时间"), blank=True, null=True)
-    certificate = models.ForeignKey(Certificate, verbose_name=_("证件"), blank=True, null=True)
+    certificate = models.ForeignKey(Certificate, verbose_name=_("112"), blank=True, null=True)
 
     class Meta:
         verbose_name = _('学历情况')
