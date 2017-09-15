@@ -9,6 +9,7 @@ from django.core.urlresolvers import reverse
 from djangoWeb.models import AbstractBaseModel
 from organization.models import (Company, Project, Department, Post)
 
+
 # 上传文件命名
 def file_rename(instance, filename):
     ext = filename.split('.')[-1]
@@ -22,6 +23,7 @@ def file_rename(instance, filename):
 def calculate_age(born):
     today = date.today()
     return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+
 
 
 # models Person.人员
@@ -76,7 +78,7 @@ class Contact(AbstractBaseModel):
     telephone = models.CharField(_("固定电话"), max_length=12, blank=True)
     telephone_short = models.CharField(_("小号"), max_length=5, blank=True)
     email = models.EmailField(_("邮箱"), max_length=75, blank=True)
-    qq = models.CharField(_("QQ"), max_length=13, blank=True)
+    qq = models.CharField(_("QQ"), max_length=15, blank=True)
 
     class Meta:
         verbose_name = _('联系方式')
