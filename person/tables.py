@@ -29,7 +29,9 @@ class ContractTable(tables.Table):
 
 class WorkrecordTable(tables.Table):
     person = tables.RelatedLinkColumn()
+    id = tables.Column(accessor='pk')
     # name = tables.LinkColumn()
+    get_company = tables.Column()
 
     class Meta:
         model = WorkRecord

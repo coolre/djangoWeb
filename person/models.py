@@ -125,6 +125,10 @@ class WorkRecord(AbstractBaseModel):
     def __str__(self):
         return '%s' % self.person
 
+    def get_company(self):
+        return '%s' % self.Organization.parent
+
+
     # def get_absolute_url(self):
     #     return reverse('PersonDetailView', args=[str(self.id)])
 

@@ -1,0 +1,72 @@
+{% load mptt_tags %}
+
+<ul class="root">
+    {% recursetree nodes %}
+        <li>
+            {{ node.name }}
+            {% if not node.is_leaf_node %}
+                <ul class="children">
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+</ul>
+
+
+
+{% with node as friendly_node %}
+    {% recursetree nodes %}
+        {{ node.name }} is friends with {{ friendly_node.name }}
+        {{ children }}
+    {% endrecursetree %}
+{% endwith %}
+
+
+<br/>
+
+{% full_tree_for_model organization.OrganizationTree as genres %}
+
+{% for genre,structure in genres|tree_info %}
+    {% if structure.new_level %}
+       <ul>
+         <li>
+    {% else %}
+         </li>
+         <li>
+    {% endif %}
+
+    {{ genre.name }}
+    {% for level in structure.closed_levels %}
+         </li>
+       </ul>
+    {% endfor %}
+{% endfor %}
+
+
+<br />
+<p>
+tree_info和tree_path的用法：
+</p>
+<select name="classifiers" multiple="multiple" size="10">
+    {% for node,structure in genres|tree_info:"ancestors" %}
+        {% if node.is_child_node %}
+            <option value="{{ node.pk }}">
+                {{ structure.ancestors|tree_path:" > " }} > {{ node }}
+            </option>
+        {% endif %}
+    {% endfor %}
+</select>
+
+
+{% drilldown_tree_for_node genre as drilldown cumulative count person.WorkRecord.Organization in game_count %}
+{% for node,structure in drilldown|tree_info %}
+    {% if structure.new_level %}<ul><li>{% else %}</li><li>{% endif %}
+    {% if node == genre %}
+        <strong>{{ node.name }}</strong>
+    {% else %}
+        <a href="{{ node.get_absolute_url }}">{{ node.name }}</a>
+        {% if node.parent_id == genre.pk %}({{ node.game_count }}){% endif %}
+    {% endif %}
+    {% for level in structure.closed_levels %}</li></ul>{% endfor %}
+{% endfor %}
