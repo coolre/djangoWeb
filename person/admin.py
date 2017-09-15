@@ -10,7 +10,9 @@ from import_export.admin import ImportExportModelAdmin, ImportExportMixin, Impor
 # Register your models here.
 from .models import (Person, Contact, Contract, WorkRecord, CertificatesType, Certificate,
                      CertificateRecod, CertificatePhoto, Salary, Education, TechnicalTitles)
-from organization.models import (Company, Project, Department, Post)
+from organization.models import Post
+
+
 
 
 # Person
@@ -127,18 +129,18 @@ class WorkRecordResource(resources.ModelResource):
         column_name='person',
         attribute='person',
         widget=ForeignKeyWidget(Person, 'name'))
-    company = fields.Field(
-        column_name='company',
-        attribute='company',
-        widget=ForeignKeyWidget(Company, 'name'))
-    project = fields.Field(
-        column_name='project',
-        attribute='project',
-        widget=ForeignKeyWidget(Project, 'name'))
-    department = fields.Field(
-        column_name='department',
-        attribute='department',
-        widget=ForeignKeyWidget(Department, 'name'))
+    # company = fields.Field(
+    #     column_name='company',
+    #     attribute='company',
+    #     widget=ForeignKeyWidget(Company, 'name'))
+    # project = fields.Field(
+    #     column_name='project',
+    #     attribute='project',
+    #     widget=ForeignKeyWidget(Project, 'name'))
+    # department = fields.Field(
+    #     column_name='department',
+    #     attribute='department',
+    #     widget=ForeignKeyWidget(Department, 'name'))
     post = fields.Field(
         column_name='post',
         attribute='post',
@@ -146,12 +148,12 @@ class WorkRecordResource(resources.ModelResource):
 
     class Meta:
         model = WorkRecord
-        fields = ('id',  'person', 'company', 'project', 'department', 'post', 'job_start_date', 'job_end_date')
-        export_order = ('id', 'person', 'company', 'project', 'department', 'post', 'job_start_date', 'job_end_date')
+        fields = ('id',  'person',  'post', 'job_start_date', 'job_end_date')
+        export_order = ('id', 'person', 'post', 'job_start_date', 'job_end_date')
 
 class WorkRecordAdmin(ImportExportModelAdmin):
     # list_display = ('person', 'company', 'project', 'department', 'Post', 'job_start_date', 'job_end_date')
-    list_display = ('person', 'company', 'project', 'department', 'post', 'job_start_date', 'job_end_date')
+    list_display = ('person','post', 'job_start_date', 'job_end_date')
     search_fields = ('person__name',)
     resource_class = WorkRecordResource
 
@@ -167,7 +169,7 @@ class SalaryResource(resources.ModelResource):
         model = Salary
         # import_id_fields = ('person',)
         fields = ('id', 'person', 'belong_year', 'pay_year', 'pay_month', 'pay_type', 'pay_money', 'pay_use')
-        export_order = ('id','person', 'belong_year', 'pay_year', 'pay_month', 'pay_type', 'pay_money', 'pay_use' )
+        export_order = ('id', 'person', 'belong_year', 'pay_year', 'pay_month', 'pay_type', 'pay_money', 'pay_use' )
 
 
 class SalaryAdmin(ImportExportModelAdmin):
@@ -200,8 +202,8 @@ class CertificateAdmin(admin.ModelAdmin):
 
 #
 class CertificateRecodAdmin(admin.ModelAdmin):
-    fields = ('certificate', 'borrow_people', 'borrow_date', 'return_date', 'use_project', 'use')
-    list_display = ('certificate', 'borrow_people', 'borrow_date', 'return_date', 'use_project', 'use')
+    fields = ('certificate', 'borrow_people', 'borrow_date', 'return_date', 'use')
+    list_display = ('certificate', 'borrow_people', 'borrow_date', 'return_date', 'use')
     raw_id_fields = ('certificate',)
 
 #

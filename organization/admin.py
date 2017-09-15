@@ -1,28 +1,41 @@
 from django.contrib import admin
+from django.utils.html import format_html
+from django.utils.translation import ugettext_lazy as _
+
+from mptt.admin import MPTTModelAdmin
+from mptt.admin import DraggableMPTTAdmin
 
 # Register your models here.
 from treebeard.admin import TreeAdmin
 from treebeard.forms import movenodeform_factory
-from .models import Company, Project, Department, Post
+from .models import Post, OrganizationTree
 
 
-class CompanyAdmin(TreeAdmin):
-     form = movenodeform_factory(Company)
+class CustomMPTTModelAdmin(MPTTModelAdmin):
+    # specify pixel amount for this ModelAdmin only:
+    mptt_level_indent = 20
+    mptt_indent_field = "name"
 
 
-# admin
-class ProjectAdmin(admin.ModelAdmin):
-    pass
+class MyDraggableMPTTAdmin(DraggableMPTTAdmin):
+    list_display = ('tree_actions', 'something')
+    list_display_links = ('something',)
 
-    class Meta:
-        model = Project
+    def something(self, instance):
+        return format_html(
+            '<div style="text-indent:{}px">{}</div>',
+            instance._mpttfield('level') * self.mptt_level_indent,
+            instance.name,  # Or whatever you want to put here
+        )
+
+    something.short_description = _('something nice')
 
 
-class DepartmentAdmin(admin.ModelAdmin):
-    pass
 
-    class Meta:
-        model = Department
+admin.site.register(OrganizationTree, MyDraggableMPTTAdmin)
+
+
+
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -32,7 +45,4 @@ class PostAdmin(admin.ModelAdmin):
         model = Post
 
 
-admin.site.register(Company, CompanyAdmin)
-admin.site.register(Project, ProjectAdmin)
-admin.site.register(Department, DepartmentAdmin)
 admin.site.register(Post, PostAdmin)

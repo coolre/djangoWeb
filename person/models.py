@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
 from djangoWeb.models import AbstractBaseModel
-from organization.models import (Company, Project, Department, Post)
+from organization.models import (OrganizationTree, Post)
 
 
 # 上传文件命名
@@ -105,16 +105,15 @@ class Employee(AbstractBaseModel):
         verbose_name = _('雇佣信息')
         verbose_name_plural = _('雇佣信息')
 
-
+from mptt.models import TreeForeignKey
 
 
 # WorkRecord工作记录
 class WorkRecord(AbstractBaseModel):
     person = models.ForeignKey(Person, verbose_name=_("姓名"))
-    company = models.ForeignKey(Company, verbose_name=_("公司"))
-    project = models.ForeignKey(Project, verbose_name=_("项目部"))
-    department = models.ForeignKey(Department, verbose_name=_("部门"))
-    post = models.ForeignKey(Post, verbose_name=_("岗位"))
+    Organization = TreeForeignKey(OrganizationTree, verbose_name=_("工作单位"))
+    # department = models.ForeignKey(Department, verbose_name=_("部门"), blank=True, null=True)
+    post = models.ForeignKey(Post, verbose_name=_("岗位"),  blank=True, null=True)
     job_start_date = models.DateField(_("开始时间"))
     job_end_date = models.DateField(_("结束时间"), blank=True, null=True)
     # position = models.CharField(max_length=64)
@@ -171,7 +170,7 @@ class CertificateRecod(AbstractBaseModel):
     borrow_people = models.CharField(_("借用人"), max_length=80)
     borrow_date = models.DateField(_("借用时间"), )
     return_date = models.DateField(_("归还时间"), blank=True, null=True)
-    use_project = models.ForeignKey(Project, verbose_name=_("使用单位"))
+    # use_project = models.ForeignKey(Project, verbose_name=_("使用单位"))
     use = models.CharField(_("备注"), max_length=160, blank=True,)
 
     class Meta:
@@ -215,7 +214,7 @@ class Contract(AbstractBaseModel):
         ('1', '无固定期限'),
     )
     person = models.ForeignKey(Person, verbose_name=_("乙方"))
-    company = models.ForeignKey(Company, verbose_name=_("甲方"))
+    company = TreeForeignKey(OrganizationTree, verbose_name=_("甲方"))
     type = models.CharField(_('合同类型'), max_length=10, choices=TYPE_CHOICES, default='0')
     Contract_start_date = models.DateField(_("开始时间"))
     Contract_end_date = models.DateField(_("结束时间"), blank=True, null=True)
