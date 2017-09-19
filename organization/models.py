@@ -21,8 +21,9 @@ class OrganizationTree(MPTTModel):
         verbose_name = _('组织架构')
         verbose_name_plural = _('组织架构')
 
-    # def get_absolute_url(self):
-    #     return reverse('show_genres', kwargs={'pk': self.pk, })
+    def get_absolute_url(self):
+        return "/"
+        # return reverse('show_genres', kwargs={'pk': self.pk, })
 
     def __str__(self):
         return "%s" % self.name
