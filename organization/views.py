@@ -6,6 +6,7 @@ from django.template import RequestContext
 
 def show_genres(request):
     nodes = OrganizationTree.objects.all()
+    # print(nodes)
     genre = nodes[1]
     return render_to_response("genres.html", locals())
 

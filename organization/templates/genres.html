@@ -1,4 +1,17 @@
+{% extends 'base_person.html' %}
+
+{% load bootstrap4 %}
 {% load mptt_tags %}
+
+
+{% block title %}
+    Forms
+{% endblock %}
+
+
+{% block content %}
+
+
 
 <ul class="root">
     {% recursetree nodes %}
@@ -70,3 +83,5 @@ tree_info和tree_path的用法：
     {% endif %}
     {% for level in structure.closed_levels %}</li></ul>{% endfor %}
 {% endfor %}
+
+{% endblock %}
