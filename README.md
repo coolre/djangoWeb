@@ -1,6 +1,10 @@
 "# djangoWeb" 
-"# djangoWeb" 
-"# djangoWeb" 
-"# djangoWeb" 
-"# djangoWeb" 
-"# djangoWeb" 
+
+
+
+$ python manage.py makemigrations
+
+$ python manage.py migrate
+
+
+$ python manage.py createsuperuser
