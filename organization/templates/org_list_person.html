@@ -1,0 +1,29 @@
+{% extends 'base_person.html' %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+
+
+{% block title %}人力资源{% endblock %}
+
+
+{% block content %}
+
+<div class="d-flex flex-row">
+  <div class="p-2">
+   {% include "org_list.html" %}
+  </div>
+
+  <div class="p-2">
+
+
+      <div class="table-responsive">
+              {% for persons in object_list %}
+            <li>{{ persons.person }}</li>
+        {% endfor %}
+          </div>
+
+</div>
+
+</div>
+
+{% endblock %}
