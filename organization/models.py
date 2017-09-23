@@ -24,7 +24,7 @@ class OrganizationTree(MPTTModel):
     def get_absolute_url(self):
         # return "/"
         # return reverse('show_genres', kwargs={'pk': self.pk, })
-        return reverse('genre_detail', kwargs={'pk': self.pk, })
+        return reverse('organization:person_list', kwargs={'pk': self.pk, })
 
     def __str__(self):
         return "%s" % self.name

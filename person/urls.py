@@ -9,9 +9,8 @@ from .views import charts
 # from django.conf.urls import patterns, include, url
 from .views import index, PersonListView, PersonDetailView, contact, contract, workrecord, certificate, CertificateDetailView, SalaryChartsView, SalaryBarView
 
-
+# app_name = 'person'
 urlpatterns = [
-
     url(r'^$', index, name='index'),
     # url(r'^$', PersonListView.as_view(), name='list'),
     url(r'^(?P<person_id>\d+)/$', PersonDetailView.as_view(), name='detail'),

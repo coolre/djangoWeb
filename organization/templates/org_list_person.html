@@ -9,17 +9,17 @@
 {% block content %}
 
 <div class="row flex-xl-nowrap">
-  <div class="col-12 col-md-4 col-xl-4 bd-sidebar  bg-light border border-white">
+  <div class="col-12 col-md-4 col-xl-4 bd-sidebar border border-white">
    {% include "org_list.html" %}
   </div>
 
   <div class="col-12 col-md-6 col-xl-6 py-md-3 pl-md-5 bd-content">
 
-      <div class="table-responsive">
-              {% for persons in object_list %}
-            <li>{{ persons.person }}</li>
+      <ul class="border-left border-secondary">
+              {% for person in object_list %}
+               <li><a href="{% url 'persons:detail' person.person_id %}">{{ person.person }}</a></li>
         {% endfor %}
-          </div>
+          </ul>
   </div>
 
 </div>

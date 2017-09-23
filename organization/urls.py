@@ -10,7 +10,8 @@ from .views import ShowOrgPersonsListView
 
 from .views import show_genres
 
+app_name = 'organization'
 urlpatterns = [
     url(r'^$', show_genres, name="show_genres"),
-    url(r'person/(?P<pk>\d+)', ShowOrgPersonsListView.as_view(), name="genre_detail",),
+    url(r'person/(?P<pk>\d+)', ShowOrgPersonsListView.as_view(), name="person_list",),
 ]

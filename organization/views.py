@@ -27,7 +27,7 @@ class ShowOrgPersonsListView(ListView):
     model = WorkRecord
     template_name = 'org_list_person.html'
     # context_object_name = 'person'
-    # pk_url_kwarg = 'person_id'
+    pk_url_kwarg = 'person_id'
     # context_object_name = 'employee'
     # print(context_object_name)
     # paginate_by = 30
@@ -41,3 +41,4 @@ class ShowOrgPersonsListView(ListView):
 
     def get_queryset(self):
         return WorkRecord.objects.filter(Organization=self.kwargs['pk'])
+
