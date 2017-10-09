@@ -1,7 +1,7 @@
-Django==1.11.5
+Django
 django-bootstrap4==0.0.1
 django-import-export==0.5.1
-django-tables2==1.10.0
-pyecharts==0.2.4
+django-tables2==1.11.0
+pyecharts==0.2.5
 django-mptt==0.8.7
 psycopg2==2.7.3.1

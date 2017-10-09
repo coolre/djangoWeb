@@ -66,7 +66,7 @@ class Person(AbstractBaseModel):
         return str(self.name)
 
     def get_absolute_url(self):
-        return reverse("detail", args=[self.id])
+        return reverse('persons:detail', args=[str(self.id)])
         # return '%d/' % self.pk
 
 
@@ -110,10 +110,10 @@ from mptt.models import TreeForeignKey
 
 # WorkRecord工作记录
 class WorkRecord(AbstractBaseModel):
-    person = models.ForeignKey(Person, verbose_name=_("姓名"))
-    Organization = TreeForeignKey(OrganizationTree, verbose_name=_("工作单位"))
+    person = models.ForeignKey(Person, verbose_name=_("姓名"), on_delete=models.CASCADE)
+    Organization = TreeForeignKey(OrganizationTree, verbose_name=_("工作单位"), on_delete=models.CASCADE)
     # department = models.ForeignKey(Department, verbose_name=_("部门"), blank=True, null=True)
-    post = models.ForeignKey(Post, verbose_name=_("岗位"),  blank=True, null=True)
+    post = models.ForeignKey(Post, verbose_name=_("岗位"), on_delete=models.CASCADE, blank=True, null=True)
     job_start_date = models.DateField(_("开始时间"))
     job_end_date = models.DateField(_("结束时间"), blank=True, null=True)
     # position = models.CharField(max_length=64)
@@ -139,8 +139,7 @@ class WorkRecord(AbstractBaseModel):
 
 
 class CertificatesType(models.Model):
-    name = models.CharField(_('证件类别'), max_length=100, blank=True, null=True)
-    type = models.CharField(_('类型'), max_length=100, blank=True, null=True)
+    type = models.CharField(_('证件类别'), max_length=100, blank=True, null=True)
     issue = models.CharField(_('备注'), max_length=100, blank=True, null=True)
 
     class Meta:
@@ -148,12 +147,13 @@ class CertificatesType(models.Model):
         verbose_name_plural = _('证件类别')
 
     def __str__(self):
-        return '%s' % self.name
+        return '%s' % self.type
 
 
 class Certificate(AbstractBaseModel):
     person = models.ForeignKey(Person, on_delete=models.CASCADE, verbose_name=_("姓名"))
-    certificates_type = models.ForeignKey(CertificatesType, on_delete=models.CASCADE, verbose_name=_("证件名称"))
+    certificates_name = models.CharField(_('证件名称'), max_length=100)
+    certificates_type = models.ForeignKey(CertificatesType, on_delete=models.CASCADE, verbose_name=_("证件类型"))
     issue_date = models.DateField(_("发证时间"))
     reg_date = models.DateField(_("登记时间"), blank=True, null=True)
     expiry_date = models.DateField(_("有效期"), blank=True, null=True)
@@ -163,14 +163,15 @@ class Certificate(AbstractBaseModel):
         verbose_name_plural = _('证件')
 
     def __str__(self):
-        return '%s-%s' % (self.person, self.certificates_type)
+        return '%s-%s' % (self.person, self.certificates_name)
 
     def get_absolute_url(self):
-        return reverse("certificate_detail", args=[self.id])
+        # return reverse('persons:detail', args=[str(self.id)])
+        return reverse("persons:certificate_detail", args=[self.id])
 
 
 class CertificateRecod(AbstractBaseModel):
-    certificate = models.ForeignKey(Certificate, verbose_name=_("证件名称"))
+    certificate = models.ForeignKey(Certificate,on_delete=models.CASCADE, verbose_name=_("证件名称"))
     borrow_people = models.CharField(_("借用人"), max_length=80)
     borrow_date = models.DateField(_("借用时间"), )
     return_date = models.DateField(_("归还时间"), blank=True, null=True)
@@ -200,7 +201,7 @@ class CertificatePhoto(AbstractBaseModel):
         certificates_type_id = instance.certificate.certificates_type.id
         return 'person/%s/certificate/%s_%s' % (person_id, certificates_type_id, new_name)
 
-    certificate = models.ForeignKey(Certificate, related_name='CertificatePhoto', verbose_name=_("证件名称"))
+    certificate = models.ForeignKey(Certificate, related_name='CertificatePhoto', on_delete=models.CASCADE, verbose_name=_("证件名称"))
     name = models.CharField(_("图片说明"), max_length=100, blank=True, null=True)
     photo = models.ImageField(_("图片"), upload_to=certificate_file_name,)
 
@@ -217,12 +218,12 @@ class Contract(AbstractBaseModel):
         ('0', '有固定期限'),
         ('1', '无固定期限'),
     )
-    person = models.ForeignKey(Person, verbose_name=_("乙方"))
-    company = TreeForeignKey(OrganizationTree, verbose_name=_("甲方"))
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, verbose_name=_("乙方"))
+    company = TreeForeignKey(OrganizationTree, on_delete=models.CASCADE, verbose_name=_("甲方"))
     type = models.CharField(_('合同类型'), max_length=10, choices=TYPE_CHOICES, default='0')
     Contract_start_date = models.DateField(_("开始时间"))
     Contract_end_date = models.DateField(_("结束时间"), blank=True, null=True)
-    photo = models.ForeignKey(Certificate, verbose_name=_("合同扫描件"), blank=True, null=True)
+    photo = models.ForeignKey(Certificate, on_delete=models.CASCADE, verbose_name=_("合同扫描件"), blank=True, null=True)
 
     class Meta:
         verbose_name = _('劳动合同')
@@ -255,7 +256,7 @@ class Education(AbstractBaseModel):
     type = models.CharField(_('类型'), max_length=10, choices=TYPE_CHOICES, blank=True, )
     length = models.CharField(_('年制'), max_length=255, blank=True, null=True)
     graduation_date = models.DateField(_("毕业时间"), blank=True, null=True)
-    certificate = models.ForeignKey(Certificate, verbose_name=_("112"), blank=True, null=True)
+    certificate = models.ForeignKey(Certificate, on_delete=models.CASCADE, verbose_name=_("112"), blank=True, null=True)
 
     class Meta:
         verbose_name = _('学历情况')
@@ -278,12 +279,12 @@ class TechnicalTitles(AbstractBaseModel):
         ('10', '经济师'),
         ('11', '高级经济师'),
     )
-    person = models.ForeignKey(Person, verbose_name=_("姓名"))
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, verbose_name=_("姓名"))
     titles = models.CharField(_('职称等级'), max_length=10, choices=TITLES_CHOICES, default='0')
     specialty = models.CharField(_('专业'), max_length=255, blank=True, null=True)
     rating_time = models.DateField(_("评定时间"), blank=True, null=True)
     employed_time = models.DateField(_("聘用时间"), blank=True, null=True)
-    certificate = models.ForeignKey(Certificate, verbose_name=_("证件"), blank=True, null=True)
+    certificate = models.ForeignKey(Certificate, on_delete=models.CASCADE, verbose_name=_("证件"), blank=True, null=True)
 
     class Meta:
         verbose_name = _('技术职称')
@@ -324,7 +325,7 @@ class Salary(AbstractBaseModel):
         ('11', '11月'),
         ('12', '12月'),
     )
-    person = models.ForeignKey(Person, verbose_name=_("姓名"))
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, verbose_name=_("姓名"))
     belong_year = models.CharField(_("归集年度"), max_length=10, choices=YEAR_CHOICES)
     pay_year = models.CharField(_("发放年度"), max_length=10, choices=YEAR_CHOICES)
     pay_month = models.CharField(_("发放月份"), max_length=10,  choices=MONTH_CHOICES)

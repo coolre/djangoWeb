@@ -5,6 +5,7 @@
         <tr>
 
         <th>证件名称</th>
+        <th>证件类别</th>
         <th>发证时间</th>
         <th>注册时间</th>
         <th>到期时间</th>
@@ -15,7 +16,8 @@
         {% for certificate in certificate_list %}
         <tr>
 
-        <td><a href="{% url 'certificate_detail' certificate.id %}">{{ certificate.certificates_type }}</a></td>
+        <td><a href="{% url 'persons:certificate_detail' certificate.id %}">{{ certificate.certificates_name }}</a></td>
+        <td>{{ certificate.certificates_type }}</td>
         <td>{{ certificate.issue_date }}</td>
         <td>{{ certificate.reg_date }}</td>
         <td>{{ certificate.expiry_date }}</td>

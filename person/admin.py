@@ -181,7 +181,7 @@ class SalaryAdmin(ImportExportModelAdmin):
 
 
 class CertificatesTypeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'type', 'issue')
+    list_display = ('type', 'issue')
 
 
 # CertificateAdmin
@@ -194,7 +194,7 @@ class CertificateRecodInline(admin.TabularInline):
     extra = 1
 
 class CertificateAdmin(admin.ModelAdmin):
-    fields = ('person', ('certificates_type', 'issue_date', 'reg_date', 'expiry_date'))
+    fields = ('person', 'certificates_name', ('certificates_type', 'issue_date', 'reg_date', 'expiry_date'))
     inlines = [CertificatePhotoInline, CertificateRecodInline]
     raw_id_fields = ('person',)
     search_fields = ('person__name',)
