@@ -42,7 +42,7 @@ class WorkrecordTable(tables.Table):
 
 class CertificateTable(tables.Table):
     # person = tables.RelatedLinkColumn()
-    certificates_name = tables.LinkColumn()
+    name = tables.LinkColumn()
 
     class Meta:
         model = Certificate

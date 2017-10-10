@@ -9,18 +9,12 @@
 {% block content %}
 
       <h2 class="sub-header"><small>编号： {{ person.id }}</small></h2>
-      <div class="table-responsive">
-
+<div class="table-responsive">
         {% include "person_detail_contact.html" %}
         {% include "person_detail_certificate.html" %}
         {% include "person_detail_workrecord.html" %}
+  </div>
 
-      </div>
 
-<!--
-bs-callout-info
-bs-callout-danger
-bs-callout-warning
--->
 
 {% endblock %}

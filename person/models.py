@@ -152,8 +152,8 @@ class CertificatesType(models.Model):
 
 class Certificate(AbstractBaseModel):
     person = models.ForeignKey(Person, on_delete=models.CASCADE, verbose_name=_("姓名"))
-    certificates_name = models.CharField(_('证件名称'), max_length=100)
-    certificates_type = models.ForeignKey(CertificatesType, on_delete=models.CASCADE, verbose_name=_("证件类型"))
+    name = models.CharField(_('证件名称'), max_length=100)
+    type = models.ForeignKey(CertificatesType, on_delete=models.CASCADE, verbose_name=_("证件类型"))
     issue_date = models.DateField(_("发证时间"))
     reg_date = models.DateField(_("登记时间"), blank=True, null=True)
     expiry_date = models.DateField(_("有效期"), blank=True, null=True)
@@ -163,7 +163,7 @@ class Certificate(AbstractBaseModel):
         verbose_name_plural = _('证件')
 
     def __str__(self):
-        return '%s-%s' % (self.person, self.certificates_name)
+        return '%s-%s' % (self.person, self.name)
 
     def get_absolute_url(self):
         # return reverse('persons:detail', args=[str(self.id)])
@@ -202,7 +202,7 @@ class CertificatePhoto(AbstractBaseModel):
         return 'person/%s/certificate/%s_%s' % (person_id, certificates_type_id, new_name)
 
     certificate = models.ForeignKey(Certificate, related_name='CertificatePhoto', on_delete=models.CASCADE, verbose_name=_("证件名称"))
-    name = models.CharField(_("图片说明"), max_length=100, blank=True, null=True)
+    issue = models.CharField(_("图片说明"), max_length=100, blank=True, null=True)
     photo = models.ImageField(_("图片"), upload_to=certificate_file_name,)
 
     class Meta:
@@ -210,7 +210,7 @@ class CertificatePhoto(AbstractBaseModel):
         verbose_name_plural = _('证件图片')
 
     def __str__(self):
-        return '%s' % self.name
+        return '%s' % self.certificate
 
 # contract劳动合同
 class Contract(AbstractBaseModel):

@@ -194,7 +194,7 @@ class CertificateRecodInline(admin.TabularInline):
     extra = 1
 
 class CertificateAdmin(admin.ModelAdmin):
-    fields = ('person', 'certificates_name', ('certificates_type', 'issue_date', 'reg_date', 'expiry_date'))
+    fields = ('person', 'name', ('type', 'issue_date', 'reg_date', 'expiry_date'))
     inlines = [CertificatePhotoInline, CertificateRecodInline]
     raw_id_fields = ('person',)
     search_fields = ('person__name',)
@@ -208,7 +208,8 @@ class CertificateRecodAdmin(admin.ModelAdmin):
 
 #
 class CertificatePhotoAdmin(admin.ModelAdmin):
-    list_display = ('person', 'name', 'photo')
+    list_display = ('certificate', 'issue', 'photo')
+    search_fields = ('certificate',)
 
 
 
@@ -221,7 +222,7 @@ admin.site.register(WorkRecord, WorkRecordAdmin)
 admin.site.register(CertificatesType, CertificatesTypeAdmin)
 admin.site.register(Certificate, CertificateAdmin)
 admin.site.register(CertificateRecod)
-admin.site.register(CertificatePhoto)
+admin.site.register(CertificatePhoto, CertificatePhotoAdmin)
 admin.site.register(Salary, SalaryAdmin)
 
 

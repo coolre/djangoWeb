@@ -1,12 +1,9 @@
-<div class="bs-callout bs-callout-warning">
-
-    <dl class="dl-horizontal">
-        <table class="table table-striped  table-condensed">
-        <caption>证件使用情况：</caption>
+<div class="card border-light">
+  <div class="card-header">证件使用情况：</div>
+    <div class="card-body pt-0">
+        <table class="table">
         <thead>
         <tr>
-
-        <th>证件名称</th>
         <th>借用人</th>
         <th>借用时间</th>
         <th>归还时间</th>
@@ -17,8 +14,6 @@
         <tbody>
         {% for certificate_record in certificate_record_list %}
         <tr>
-
-        <td>{{ certificate_record.paper }}</td>
         <td>{{ certificate_record.borrow_people }}</td>
         <td>{{ certificate_record.borrow_date }}</td>
         <td>{{ certificate_record.return_date }}</td>
@@ -28,6 +23,6 @@
         {% endfor %}
         </tbody>
         </table>
-    </dl>
 
+</div>
 </div>

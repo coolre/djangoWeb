@@ -15,8 +15,8 @@
     {% for certificatePhoto in certificate_photo %}
   <div class="col-sm-6 col-md-3">
     <div class="thumbnail">
-      <img src="{{ MEDIA_URL }}{{ certificatePhoto.photo }}" >
-        {{ certificatePhoto.name }}
+      <img src="{{ MEDIA_URL }}{{ certificatePhoto.photo }}"  class="img-thumbnail">
+
     </div>
   </div>
      {% endfor %}
@@ -26,13 +26,17 @@
   <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>-->
   <!--<footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>-->
 <!--</blockquote>-->
-    <div class="bs-callout bs-callout-warning">
+
+<div class="card border-light">
+  <div class="card-header">{{ Certificate.certificates_name }}  信息：</div>
+    <div class="card-body pt-0">
+
 <table class="table">
-        <caption>证件信息：</caption>
         <thead>
         <tr>
-        <th>姓名</th>
+        <th>持证人姓名</th>
         <th>证件名称</th>
+        <th>证件类别</th>
         <th>发证日期</th>
         <th>注册日期</th>
         <th>有效期</th>
@@ -44,7 +48,8 @@
         <tr>
 
         <td>{{ Certificate.person }}</td>
-        <td>{{ Certificate.certificates_type }}</td>
+        <td>{{ Certificate.name }}</td>
+        <td>{{ Certificate.type }}</td>
         <td>{{ Certificate.issue_date }}</td>
         <td>{{ certificate_record.reg_date }}</td>
         <td>{{ certificate_record.expiry_date }}</td>
@@ -54,6 +59,8 @@
         </tbody>
         </table>
 </div>
+</div>
+
 
 <div class="table-responsive">
 
