@@ -37,8 +37,10 @@ class ShowOrgPersonsListView(ListView):
         nodes = OrganizationTree.objects.all()
         genre = nodes[1]
         context['genre'] = genre
+        # context['c'] = context['genre']
+        # print(context)
         return context
 
     def get_queryset(self):
-        return WorkRecord.objects.filter(organization=self.kwargs['pk']).order_by('job_start_date')
+        return WorkRecord.objects.filter(organization=self.kwargs['pk']).order_by('person__id')
 

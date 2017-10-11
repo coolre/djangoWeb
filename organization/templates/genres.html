@@ -72,7 +72,7 @@ tree_info和tree_path的用法：
 </select>
 
 
-{% drilldown_tree_for_node genre as drilldown cumulative count person.WorkRecord.Organization in game_count %}
+{% drilldown_tree_for_node genre as drilldown cumulative count person.WorkRecord.organization in game_count %}
 {% for node,structure in drilldown|tree_info %}
     {% if structure.new_level %}<ul><li>{% else %}</li><li>{% endif %}
     {% if node == genre %}
