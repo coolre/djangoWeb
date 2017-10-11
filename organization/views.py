@@ -14,8 +14,6 @@ def show_genres(request):
     return render_to_response("genres.html", locals())
 
 
-
-
 # show_org
 def show_org(request):
     nodes = OrganizationTree.objects.all()
