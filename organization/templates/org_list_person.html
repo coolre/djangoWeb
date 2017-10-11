@@ -17,7 +17,7 @@
 
       <ul class="border-left border-secondary">
               {% for person in object_list %}
-               <li><a href="{% url 'persons:detail' person.person_id %}">{{ person.person }}</a></li>
+               <li><a href="{% url 'persons:detail' person.person_id %}">{{ person.person }}</a>{{ person.post }}</li>
         {% endfor %}
           </ul>
   </div>

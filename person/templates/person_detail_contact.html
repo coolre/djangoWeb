@@ -3,17 +3,17 @@
 <div class="card-group">
   <div class="card" >
       <div class="card-body row">
-          <div class="col-sm-4">
+          <div class="col-4">
            <a href="{{ MEDIA_URL }}{{ person.avatar }}">
                <img class="img-thumbnail" src="{{ MEDIA_URL }}{{ person.avatar }}" ></a></div>
-           <div class="col-sm-8">
+           <div class="col-8">
               <h4 class="card-title">基本信息</h4>
               <dl class="row">
-                <dt class="col-sm-3">姓名:</dt>  <dd class="col-sm-9">{{ person.name }}</dd>
-                <dt class="col-sm-3">性别:</dt>  <dd class="col-sm-9">{{ person.get_gender_display }}</dd>
-                <dt class="col-sm-3">年龄:</dt>  <dd class="col-sm-9">{{ person.get_age }}</dd>
-                <dt class="col-sm-3">籍贯:</dt>  <dd class="col-sm-9">{{ person.hometown}}</dd>
-                <dt class="col-sm-3">民族:</dt>  <dd class="col-sm-9">{{ person.rationality }}</dd>
+                <dt class="col-sm-4">姓名:</dt>  <dd class="col-sm-8">{{ person.name }}</dd>
+                <dt class="col-sm-4">性别:</dt>  <dd class="col-sm-8">{{ person.get_gender_display }}</dd>
+                <dt class="col-sm-4">年龄:</dt>  <dd class="col-sm-8">{{ person.get_age }}</dd>
+                <dt class="col-sm-4">籍贯:</dt>  <dd class="col-sm-8">{{ person.hometown}}</dd>
+                <dt class="col-sm-4">民族:</dt>  <dd class="col-sm-8">{{ person.rationality }}</dd>
                 <dt class="col-sm-4">政治面貌:</dt>  <dd class="col-sm-8"> {{ contact.address }}</dd>
               </dl>
            </div>
