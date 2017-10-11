@@ -31,18 +31,17 @@ class OrganizationTree(MPTTModel):
 
 
 #
-# # Department
-# class Department(AbstractBaseModel):
-#     name = models.CharField(max_length=100)
-#     company = models.ForeignKey(Company)
-#     # belong = models.CharField(max_length=100)
-#
-#     class Meta:
-#         verbose_name = _('部门名称')
-#         verbose_name_plural = _('部门名称')
-#
-#     def __str__(self):
-#         return self.name
+# Department
+class Department(AbstractBaseModel):
+    name = models.CharField(max_length=100)
+    belong = TreeForeignKey(OrganizationTree, related_name="dep", verbose_name=_("所属机构"), blank=True, null=True)
+
+    class Meta:
+        verbose_name = _('部门名称')
+        verbose_name_plural = _('部门名称')
+
+    def __str__(self):
+        return self.name
 
 
 class Post(AbstractBaseModel):

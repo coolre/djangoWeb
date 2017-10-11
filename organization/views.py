@@ -40,5 +40,5 @@ class ShowOrgPersonsListView(ListView):
         return context
 
     def get_queryset(self):
-        return WorkRecord.objects.filter(Organization=self.kwargs['pk']).order_by('job_start_date')
+        return WorkRecord.objects.filter(organization=self.kwargs['pk']).order_by('job_start_date')
 

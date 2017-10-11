@@ -8,7 +8,7 @@ from mptt.admin import DraggableMPTTAdmin
 # Register your models here.
 from treebeard.admin import TreeAdmin
 from treebeard.forms import movenodeform_factory
-from .models import Post, OrganizationTree
+from .models import  OrganizationTree, Department, Post
 
 
 class CustomMPTTModelAdmin(MPTTModelAdmin):
@@ -45,4 +45,12 @@ class PostAdmin(admin.ModelAdmin):
         model = Post
 
 
+class DepartmentAdmin(admin.ModelAdmin):
+    pass
+
+    class Meta:
+        model = Department
+
+
 admin.site.register(Post, PostAdmin)
+admin.site.register(Department, DepartmentAdmin)

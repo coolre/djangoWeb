@@ -10,8 +10,7 @@ from import_export.admin import ImportExportModelAdmin, ImportExportMixin, Impor
 # Register your models here.
 from .models import (Person, Contact, Contract, WorkRecord, CertificatesType, Certificate,
                      CertificateRecod, CertificatePhoto, Salary, Education, TechnicalTitles)
-from organization.models import Post
-
+from organization.models import (Department, Post,)
 
 
 
@@ -137,10 +136,10 @@ class WorkRecordResource(resources.ModelResource):
     #     column_name='project',
     #     attribute='project',
     #     widget=ForeignKeyWidget(Project, 'name'))
-    # department = fields.Field(
-    #     column_name='department',
-    #     attribute='department',
-    #     widget=ForeignKeyWidget(Department, 'name'))
+    department = fields.Field(
+        column_name='department',
+        attribute='department',
+        widget=ForeignKeyWidget(Department, 'name'))
     post = fields.Field(
         column_name='post',
         attribute='post',
@@ -148,12 +147,12 @@ class WorkRecordResource(resources.ModelResource):
 
     class Meta:
         model = WorkRecord
-        fields = ('id',  'person',  'post', 'job_start_date', 'job_end_date')
-        export_order = ('id', 'person', 'post', 'job_start_date', 'job_end_date')
+        fields = ('id',  'person', 'department', 'post', 'job_start_date', 'job_end_date')
+        export_order = ('id', 'person','department', 'post', 'job_start_date', 'job_end_date')
 
 class WorkRecordAdmin(ImportExportModelAdmin):
     # list_display = ('person', 'company', 'project', 'department', 'Post', 'job_start_date', 'job_end_date')
-    list_display = ('person','post', 'job_start_date', 'job_end_date')
+    list_display = ('person', 'department', 'post', 'job_start_date', 'job_end_date')
     search_fields = ('person__name',)
     resource_class = WorkRecordResource
 

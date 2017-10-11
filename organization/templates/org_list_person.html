@@ -13,13 +13,28 @@
    {% include "org_list.html" %}
   </div>
 
-  <div class="col-12 col-md-6 col-xl-6 py-md-3 pl-md-5 bd-content">
+  <div class="col-12 col-md-8 col-xl-8 py-md-3 pl-md-5 bd-content">
 
-      <ul class="border-left border-secondary">
-              {% for person in object_list %}
-               <li><a href="{% url 'persons:detail' person.person_id %}">{{ person.person }}</a>{{ person.post }}</li>
-        {% endfor %}
-          </ul>
+      <table class="table table-hover">
+      <thead>
+        <tr>
+
+          <th>姓名</th>
+          <th>部门</th>
+          <th>职务</th>
+        </tr>
+      </thead>
+      <tbody>
+       {% for person in object_list %}
+        <tr>
+
+          <td><a href="{% url 'persons:detail' person.person_id %}">{{ person.person }}</a></td>
+          <td>{{ person.department }} </td>
+          <td>{{ person.post }}</td>
+        </tr>
+       {% endfor %}
+      </tbody>
+    </table>
   </div>
 
 </div>

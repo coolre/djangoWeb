@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
 from djangoWeb.models import AbstractBaseModel
-from organization.models import (OrganizationTree, Post)
+from organization.models import (OrganizationTree, Department, Post)
 
 
 # 上传文件命名
@@ -111,8 +111,8 @@ from mptt.models import TreeForeignKey
 # WorkRecord工作记录
 class WorkRecord(AbstractBaseModel):
     person = models.ForeignKey(Person, verbose_name=_("姓名"), on_delete=models.CASCADE)
-    Organization = TreeForeignKey(OrganizationTree, verbose_name=_("工作单位"), on_delete=models.CASCADE)
-    # department = models.ForeignKey(Department, verbose_name=_("部门"), blank=True, null=True)
+    organization = TreeForeignKey(OrganizationTree, related_name='org', verbose_name=_("工作单位"), on_delete=models.CASCADE)
+    department = models.ForeignKey(Department, verbose_name=_("部门"), on_delete=models.CASCADE, blank=True, null=True)
     post = models.ForeignKey(Post, verbose_name=_("岗位"), on_delete=models.CASCADE, blank=True, null=True)
     job_start_date = models.DateField(_("开始时间"))
     job_end_date = models.DateField(_("结束时间"), blank=True, null=True)

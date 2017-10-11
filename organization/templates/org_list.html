@@ -1,7 +1,7 @@
 {% load mptt_tags %}
 
 
-{% drilldown_tree_for_node genre as drilldown cumulative count person.WorkRecord.Organization in game_count %}
+{% drilldown_tree_for_node genre as drilldown cumulative count person.WorkRecord.organization in game_count %}
 {% for node,structure in drilldown|tree_info %}
     {% if structure.new_level %}<ul><li class="nav-item">{% else %}</li><li  class="nav-item">{% endif %}
     {% if node == genre %}
