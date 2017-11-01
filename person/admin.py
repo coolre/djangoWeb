@@ -97,6 +97,7 @@ class ContractResource(resources.ModelResource):
 
 class ContractAdmin(ImportExportModelAdmin):
     list_display = ('company', 'person', 'type', 'Contract_start_date', 'Contract_end_date')
+    list_filter = ('type', 'Contract_end_date')
     search_fields = ('person__name',)
     resource_class = ContractResource
 
@@ -117,6 +118,7 @@ class TechnicalTitlesResource(resources.ModelResource):
 
 class TechnicalTitlesAdmin(ImportExportModelAdmin):
     list_display = ('person', 'titles', 'specialty', 'rating_time', 'employed_time')
+    list_filter = ('specialty',)
     search_fields = ('person__name',)
     raw_id_fields = ('certificate',)
     resource_class = TechnicalTitlesResource
@@ -153,6 +155,7 @@ class WorkRecordResource(resources.ModelResource):
 class WorkRecordAdmin(ImportExportModelAdmin):
     # list_display = ('person', 'company', 'project', 'department', 'Post', 'job_start_date', 'job_end_date')
     list_display = ('person', 'department', 'post', 'job_start_date', 'job_end_date')
+    list_filter = ('department', 'post', 'job_start_date')
     search_fields = ('person__name',)
     resource_class = WorkRecordResource
 
@@ -194,6 +197,7 @@ class CertificateRecodInline(admin.TabularInline):
 
 class CertificateAdmin(admin.ModelAdmin):
     fields = ('person', 'name', ('type', 'issue_date', 'reg_date', 'expiry_date'))
+    list_filter = ('type','expiry_date')
     inlines = [CertificatePhotoInline, CertificateRecodInline]
     raw_id_fields = ('person',)
     search_fields = ('person__name',)

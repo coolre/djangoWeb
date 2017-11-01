@@ -15,24 +15,41 @@
 
   <div class="col-12 col-md-8 col-xl-8 py-md-3 pl-md-5 bd-content">
 
-      <table class="table table-hover">
+      <table class="table table-sm table-hover">
       <thead>
         <tr>
 
           <th>姓名</th>
           <th>部门</th>
           <th>职务</th>
+          <th>持证情况</th>
         </tr>
       </thead>
       <tbody>
+<h3>
+  <small class="text-muted">人数： {% for person in object_list %}{{ person.num }} {% endfor %}</small>
+</h3>
        {% for person in object_list %}
-        <tr>
 
+       {% if person.part_time  is True %}
+       <tr  class="text-muted">
+          <td>  {{ person.person }}(兼职)</td>
+          <td>{{ person.department }} </td>
+          <td>{{ person.post }}</td>
+           <td></td>
+       </tr>
+       {% else %}
+        <tr>
           <td><a href="{% url 'persons:detail' person.person_id %}">{{ person.person }}</a></td>
           <td>{{ person.department }} </td>
           <td>{{ person.post }}</td>
+            <td> {{ person.certificate|join:" 、 "}}</td>
         </tr>
+            {% endif %}
+
+
        {% endfor %}
+
       </tbody>
     </table>
   </div>

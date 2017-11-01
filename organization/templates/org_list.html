@@ -8,7 +8,7 @@
             <strong>{{ node.name }}</strong>
         {% else %}
             <a class="nav-link" href="{{ node.get_absolute_url }}">{{ node.name }}
-        {% if node.parent_id == genre.pk %}<span class="badge badge-secondary"> {{ node.game_count }}</span>{% endif %}</a>
+        <!--{% if node.parent_id == genre.pk %}<span class="badge badge-secondary"> {{ node.game_count }}</span>{% endif %}--></a>
         {% endif %}
     {% for level in structure.closed_levels %}</li></ul>{% endfor %}
 {% endfor %}

@@ -48,7 +48,7 @@
          </li>
          <li>
     {% endif %}
-
+<a href="{{ genre.get_absolute_url }}">{{ genre.name }}</a>
     {{ genre.name }}
     {% for level in structure.closed_levels %}
          </li>

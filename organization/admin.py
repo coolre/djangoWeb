@@ -39,14 +39,16 @@ admin.site.register(OrganizationTree, MyDraggableMPTTAdmin)
 
 
 class PostAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'order_num')
+    ordering = ['-order_num']
 
     class Meta:
         model = Post
 
 
 class DepartmentAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'order_num', 'belong')
+    ordering = ['-order_num']
 
     class Meta:
         model = Department

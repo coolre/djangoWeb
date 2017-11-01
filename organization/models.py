@@ -34,6 +34,7 @@ class OrganizationTree(MPTTModel):
 # Department
 class Department(AbstractBaseModel):
     name = models.CharField(max_length=100)
+    order_num = models.IntegerField(default=0)
     belong = TreeForeignKey(OrganizationTree, related_name="dep", verbose_name=_("所属机构"), blank=True, null=True)
 
     class Meta:
@@ -46,6 +47,7 @@ class Department(AbstractBaseModel):
 
 class Post(AbstractBaseModel):
     name = models.CharField(max_length=100)
+    order_num = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = _('岗位名称')

@@ -4,7 +4,7 @@ from datetime import date, datetime
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from djangoWeb.models import AbstractBaseModel
 from organization.models import (OrganizationTree, Department, Post)
@@ -114,8 +114,10 @@ class WorkRecord(AbstractBaseModel):
     organization = TreeForeignKey(OrganizationTree, related_name='org', verbose_name=_("工作单位"), on_delete=models.CASCADE)
     department = models.ForeignKey(Department, verbose_name=_("部门"), on_delete=models.CASCADE, blank=True, null=True)
     post = models.ForeignKey(Post, verbose_name=_("岗位"), on_delete=models.CASCADE, blank=True, null=True)
+    part_time = models.BooleanField(_("是否兼职"), default=False)
     job_start_date = models.DateField(_("开始时间"))
     job_end_date = models.DateField(_("结束时间"), blank=True, null=True)
+
     # position = models.CharField(max_length=64)
 
     class Meta:
@@ -156,14 +158,14 @@ class Certificate(AbstractBaseModel):
     type = models.ForeignKey(CertificatesType, on_delete=models.CASCADE, verbose_name=_("证件类型"))
     issue_date = models.DateField(_("发证时间"))
     reg_date = models.DateField(_("登记时间"), blank=True, null=True)
-    expiry_date = models.DateField(_("有效期"), blank=True, null=True)
+    expiry_date = models.DateField(_("有效期截止时间"), blank=True, null=True)
 
     class Meta:
         verbose_name = _('证件')
         verbose_name_plural = _('证件')
 
     def __str__(self):
-        return '%s-%s' % (self.person, self.name)
+        return '%s' % (self.name)
 
     def get_absolute_url(self):
         # return reverse('persons:detail', args=[str(self.id)])
