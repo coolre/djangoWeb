@@ -20,6 +20,7 @@
         <tr>
 
           <th>姓名</th>
+
           <th>部门</th>
           <th>职务</th>
           <th>持证情况</th>
@@ -34,14 +35,16 @@
        {% if person.part_time  is True %}
        <tr  class="text-muted">
           <td>  {{ person.person }}(兼职)</td>
-          <td>{{ person.department }} </td>
+
+          <td>{{ person.department| default_if_none:""  }} </td>
           <td>{{ person.post }}</td>
            <td></td>
        </tr>
        {% else %}
         <tr>
-          <td><a href="{% url 'persons:detail' person.person_id %}">{{ person.person }}</a></td>
-          <td>{{ person.department }} </td>
+          <td><a href="{% url 'persons:detail' person.person_id %}">{{ person.person }}</a><small class="text-muted">{{person.age}}</small></td>
+
+          <td>{{ person.department| default_if_none:""  }} </td>
           <td>{{ person.post }}</td>
             <td> {{ person.certificate|join:" 、 "}}</td>
         </tr>

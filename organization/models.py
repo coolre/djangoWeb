@@ -57,14 +57,4 @@ class Post(AbstractBaseModel):
         return self.name
 
 
-class Job(AbstractBaseModel):
-    name = models.CharField(max_length=100)
-    tes = models.CharField(max_length=100)
-
-    class Meta:
-        verbose_name = _('职务名称')
-        verbose_name_plural = _('职务名称')
-
-    def __str__(self):
-        return self.name
 
