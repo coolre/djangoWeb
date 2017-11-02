@@ -24,8 +24,6 @@ def calculate_age(born):
     today = date.today()
     return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
-
-
 # models Person.人员
 class Person(AbstractBaseModel):
     GENDER_CHOICES = (
@@ -68,6 +66,10 @@ class Person(AbstractBaseModel):
     def get_absolute_url(self):
         return reverse('persons:detail', args=[str(self.id)])
         # return '%d/' % self.pk
+
+    def get_person_mobile(self):
+        mobile = Contact.objects.filter(person=self.id).values_list("mobile", flat=True)
+        return mobile
 
 
 # contact联系方式

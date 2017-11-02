@@ -155,7 +155,7 @@ class WorkRecordResource(resources.ModelResource):
 class WorkRecordAdmin(ImportExportModelAdmin):
     # list_display = ('person', 'company', 'project', 'department', 'Post', 'job_start_date', 'job_end_date')
     list_display = ('person', 'department', 'post', 'job_start_date', 'job_end_date')
-    list_filter = ('department', 'post', 'job_start_date')
+    list_filter = ('organization', 'department', 'post', 'job_start_date')
     search_fields = ('person__name',)
     resource_class = WorkRecordResource
 

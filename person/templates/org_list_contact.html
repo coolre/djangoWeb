@@ -1,0 +1,50 @@
+{% extends 'base_person.html' %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+
+
+{% block title %}人力资源{% endblock %}
+
+
+{% block content %}
+
+<div class="row flex-xl-nowrap">
+  <div class="col-12 col-md-4 col-xl-4 bd-sidebar border border-white">
+   {% include "org_list.html" %}
+  </div>
+
+  <div class="col-12 col-md-8 col-xl-8 py-md-3 pl-md-5 bd-content">
+
+      <table class="table table-sm table-hover">
+      <thead>
+        <tr>
+
+          <th>姓名</th>
+        <th>电话</th>
+          <th>部门</th>
+          <th>职务</th>
+          <th>持证情况</th>
+        </tr>
+      </thead>
+      <tbody>
+
+       {% for contact in object_list %}
+
+        <tr>
+          <td><a href="#">{{ contact.person }}</a></td>
+            <td>{{ contact.mobile}}</td>
+          <td>{{ contact.department }} </td>
+          <td>{{ contact.post }}</td>
+            <td> {{ contact.certificate}}</td>
+        </tr>
+
+
+       {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+{% endblock %}
