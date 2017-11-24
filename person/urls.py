@@ -7,7 +7,7 @@ from .views import charts
 # ]
 
 # from django.conf.urls import patterns, include, url
-from .views import index, PersonDetailView, contact, contract, workrecord, certificate, CertificateDetailView, SalaryChartsView, SalaryBarView, ShowOrgPersonsListView, ShowOrgPersonscontactListView
+from .views import index, PersonDetailView, contact, contract, workrecord, certificate, CertificateDetailView, SalaryChartsView, SalaryBarView, ShowOrgPersonsListView, ShowOrgPersonscontactListView, ShowTypeCertificateListView
 
 # app_name = 'person'
 urlpatterns = [
@@ -22,6 +22,8 @@ urlpatterns = [
 
     url(r'workbyorg/(?P<pk>\d+)', ShowOrgPersonsListView.as_view(), name="person_list",),
     url(r'contactbyorg/(?P<pk>\d+)', ShowOrgPersonscontactListView.as_view(), name="person_contact_list", ),
+
+    url(r'certificatebytype/(?P<pk>\d+)', ShowTypeCertificateListView.as_view(), name="certificate_type_list",),
 
     # # Column
     # url(r'^column_chart/$', views.column_chart, name='column_chart'),

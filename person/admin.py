@@ -181,10 +181,26 @@ class SalaryAdmin(ImportExportModelAdmin):
     ordering = ('id',)
     resource_class = SalaryResource
 
+from mptt.admin import DraggableMPTTAdmin
+from django.utils.html import format_html
+#
+# class CertificatesTypeAdmin(admin.ModelAdmin):
+#     # pass
+#     list_display = ('type_name',)
 
-class CertificatesTypeAdmin(admin.ModelAdmin):
-    list_display = ('type', 'issue')
+class CertificatesTypeDraggableMPTTAdmin(DraggableMPTTAdmin):
+    list_display = ('tree_actions', 'something')
+    list_display_links = ('something',)
 
+    def something(self, instance):
+        return format_html(
+            '<div style="text-indent:{}px">{}</div>',
+            instance._mpttfield('level') * self.mptt_level_indent,
+            instance.type_name,  # Or whatever you want to put here
+        )
+
+    something.short_description = _('something nice')
+admin.site.register(CertificatesType, CertificatesTypeDraggableMPTTAdmin)
 
 # CertificateAdmin
 class CertificatePhotoInline(admin.TabularInline):
@@ -195,12 +211,33 @@ class CertificateRecodInline(admin.TabularInline):
     model = CertificateRecod
     extra = 1
 
-class CertificateAdmin(admin.ModelAdmin):
-    fields = ('person', 'name', ('type', 'issue_date', 'reg_date', 'expiry_date'))
-    list_filter = ('type','expiry_date')
+
+class CertificateResource(resources.ModelResource):
+    person = fields.Field(
+        column_name='person',
+        attribute='person',
+        widget=ForeignKeyWidget(Person, 'name'))
+    name = fields.Field(
+        column_name='name',
+        attribute='name',
+        widget=ForeignKeyWidget(CertificatesType, 'type_name'))
+
+    class Meta:
+        model = Certificate
+        # import_id_fields = ('person',)
+        fields = ('id', 'person', 'name', 'number', 'issue_date', 'reg_date', 'expiry_date', 'issue')
+        export_order = ('id', 'person', 'name', 'number', 'issue_date', 'reg_date', 'expiry_date', 'issue')
+
+
+class CertificateAdmin(ImportExportModelAdmin):
+    fields = ('person', ('name', 'number'), ('issue_date', 'reg_date', 'expiry_date'), 'issue')
+    list_display = ('person', 'name', 'number', 'issue_date', 'reg_date', 'expiry_date', 'issue')
+    list_filter = ('expiry_date',)
     inlines = [CertificatePhotoInline, CertificateRecodInline]
     raw_id_fields = ('person',)
     search_fields = ('person__name',)
+    ordering = ('id',)
+    resource_class = CertificateResource
 
 
 #
@@ -222,7 +259,7 @@ admin.site.register(Education, EducationAdmin)
 admin.site.register(Contract, ContractAdmin)
 admin.site.register(TechnicalTitles, TechnicalTitlesAdmin)
 admin.site.register(WorkRecord, WorkRecordAdmin)
-admin.site.register(CertificatesType, CertificatesTypeAdmin)
+# admin.site.register(CertificatesType, CertificatesTypeAdmin)
 admin.site.register(Certificate, CertificateAdmin)
 admin.site.register(CertificateRecod)
 admin.site.register(CertificatePhoto, CertificatePhotoAdmin)

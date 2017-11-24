@@ -141,23 +141,50 @@ class WorkRecord(AbstractBaseModel):
     #     # print(data_person)
     #     return data_person
 
+from mptt.models import MPTTModel, TreeForeignKey
 
-class CertificatesType(models.Model):
-    type = models.CharField(_('证件类别'), max_length=100, blank=True, null=True)
-    issue = models.CharField(_('备注'), max_length=100, blank=True, null=True)
 
+# # 架构   工作机构
+# class OrganizationTree(MPTTModel):
+#     name = models.CharField(max_length=50, unique=True)
+#     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, on_delete=models.CASCADE)
+#
+#     class MPTTMeta:
+#         order_insertion_by = ['name']
+#
+#     class Meta:
+#         verbose_name = _('组织架构')
+#         verbose_name_plural = _('组织架构')
+#
+#     def get_absolute_url(self):
+#         # return "/"
+#         # return reverse('show_genres', kwargs={'pk': self.pk, })
+#         return reverse('organization:person_list', kwargs={'pk': self.pk, })
+#
+#     def __str__(self):
+#         return "%s" % self.name
+
+
+class CertificatesType(MPTTModel):
+    type_name = models.CharField(_('证件类别'),max_length=50,  null=True, blank=True)
+    parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, on_delete=models.CASCADE)
+    # pass
+    # type = models.CharField(_('证件类别'), max_length=100, blank=True, null=True)
+    # issue = models.CharField(_('备注'), max_length=100, blank=True, null=True)
+    #
     class Meta:
         verbose_name = _('证件类别')
         verbose_name_plural = _('证件类别')
 
     def __str__(self):
-        return '%s' % self.type
+        return '%s' % self.type_name
 
 
 class Certificate(AbstractBaseModel):
     person = models.ForeignKey(Person, on_delete=models.CASCADE, verbose_name=_("姓名"))
-    name = models.CharField(_('证件名称'), max_length=100)
-    type = models.ForeignKey(CertificatesType, on_delete=models.CASCADE, verbose_name=_("证件类型"))
+    name = TreeForeignKey(CertificatesType, related_name='name', verbose_name=_("证件名称"), on_delete=models.CASCADE)
+    number = models.CharField(_('证书编号'), max_length=100, blank=True, null=True)
+    issue = models.CharField(_('备注'), max_length=100, blank=True, null=True)
     issue_date = models.DateField(_("发证时间"))
     reg_date = models.DateField(_("登记时间"), blank=True, null=True)
     expiry_date = models.DateField(_("有效期截止时间"), blank=True, null=True)
@@ -176,8 +203,8 @@ class Certificate(AbstractBaseModel):
 
 class CertificateRecod(AbstractBaseModel):
     certificate = models.ForeignKey(Certificate,on_delete=models.CASCADE, verbose_name=_("证件名称"))
-    borrow_people = models.CharField(_("借用人"), max_length=80)
-    borrow_date = models.DateField(_("借用时间"), )
+    borrow_people = models.CharField(_("使用人"), max_length=80)
+    borrow_date = models.DateField(_("使用时间"), )
     return_date = models.DateField(_("归还时间"), blank=True, null=True)
     # use_project = models.ForeignKey(Project, verbose_name=_("使用单位"))
     use = models.CharField(_("备注"), max_length=160, blank=True,)

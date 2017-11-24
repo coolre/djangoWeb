@@ -11,7 +11,7 @@ from pyecharts import Bar
 from djangoWeb.echarts import EchartsView
 from organization.models import OrganizationTree
 
-from .models import Person, Contact, Contract, WorkRecord, Certificate, CertificateRecod, CertificatePhoto, Salary
+from .models import Person, Contact, Contract, WorkRecord, Certificate, CertificateRecod, CertificatePhoto, Salary, CertificatesType
 from .tables import ContactTable, ContractTable, WorkrecordTable, CertificateTable
 
 # index page
@@ -54,7 +54,7 @@ class ShowOrgPersonsListView(ListView):
                                                                                              'person__id')
         for workrecord in workrecord_list:
             person = workrecord.person
-            certificate = Certificate.objects.filter(person=person).values_list("name", flat=True).distinct()
+            certificate = Certificate.objects.filter(person=person).values_list("name__type_name", flat=True).distinct()
             workrecord.certificate = list(certificate)
             workrecord.age = Person.get_age(person)
             workrecord.mobile= Person.get_person_mobile(person)
@@ -87,12 +87,48 @@ class ShowOrgPersonscontactListView(ListView):
         for workrecord in list:
             person = workrecord.person
             contact = Contact.objects.filter(person=person)
-            print(contact)
+            # print(contact)
             # workrecord.certificate = list(contact)
             # workrecord.age = Person.get_age(person)
             # workrecord.mobile = Person.get_person_mobile(person)
         return list
 
+
+
+
+from django.shortcuts import redirect
+# ShowTypeCertificateListView
+class ShowTypeCertificateListView(ListView):
+    # model = WorkRecord
+    # queryset = WorkRecord.objects.exclude(part_time='t')
+    template_name = 'certificate_type_list.html'
+    # context_object_name = 'person'
+    # pk_url_kwarg = 'name_id'
+
+    def get_context_data(self, **kwargs):
+        context = super(ShowTypeCertificateListView, self).get_context_data(**kwargs)
+        nodes = CertificatesType.objects.all()
+        genre = nodes[1]
+        # # # print(genre)
+        context['genre'] = genre
+        # # # certificate = Certificate.objects.values_list('name', flat=True)
+        # # # context['certificate'] = certificate
+        # print(nodes)
+        return context
+
+    def get_queryset(self):
+        list = Certificate.objects.all()
+            # filter(name=self.kwargs['pk'])
+        # for workrecord in workrecord_list:
+        #     person = workrecord.person
+        #     certificate = Certificate.objects.filter(person=person).values_list("name__type_name", flat=True).distinct()
+        #     workrecord.certificate = list(certificate)
+        #     workrecord.age = Person.get_age(person)
+        #     workrecord.mobile= Person.get_person_mobile(person)
+        #
+        # person_list = workrecord_list.values_list("person", flat=True)
+        # workrecord.num = len(list(set(person_list)))
+        return list
 
 
 # Person_Detail
@@ -256,7 +292,7 @@ def line3d():
     v2 = get_v_data(2015)
     v3 = get_v_data(2014)
 
-    bar = Bar("Bar chart", "precipitation and evaporation one year", height=2800)
+    bar = Bar("Bar chart", "precipitation and evaporation one year", width=1300, height=2800)
     bar.add("2016", attr, v1, mark_line=["average"], mark_point=["max"])
     bar.add("2015", attr, v2, mark_line=["average"], mark_point=["max"])
     bar.add("2014", attr, v3, mark_line=["average"], mark_point=["max"],

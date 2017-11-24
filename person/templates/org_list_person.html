@@ -38,7 +38,7 @@
 
           <td>{{ person.department| default_if_none:""  }} </td>
           <td>{{ person.post }}</td>
-           <td></td>
+           <td> {{ person.certificate|join:" 、 "}}</td>
        </tr>
        {% else %}
         <tr>
