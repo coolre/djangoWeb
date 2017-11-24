@@ -1,4 +1,5 @@
 {% load mptt_tags %}
+{% csrf_token %}
 
 {% drilldown_tree_for_node genre as drilldown cumulative count person.WorkRecord.organization in game_count %}
 {% for node,structure in drilldown|tree_info %}
