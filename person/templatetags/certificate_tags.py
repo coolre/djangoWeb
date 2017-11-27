@@ -22,8 +22,8 @@ def total_posts():
     areas = CertificatesType.objects.filter(parent_id=None)
     # .values_list("type_name", flat=True).distinct()
     # areas = display(areas)
-    # {{var | unordered_list}}
-    # areas = unordered_list
+    # {{var | unordered_list.html}}
+    # areas = unordered_list.html
     print(areas)
     return render_to_response({'var': display(areas)})
 

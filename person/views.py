@@ -73,10 +73,10 @@ class ShowOrgPersonscontactListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ShowOrgPersonscontactListView, self).get_context_data(**kwargs)
-        nodes = OrganizationTree.objects.all()
-        genre = nodes[1]
-        # print(genre)
-        context['genre'] = genre
+        # nodes = OrganizationTree.objects.all()
+        # genre = nodes[1]
+        # # print(genre)
+        # context['genre'] = genre
         return context
 
     def get_queryset(self):
@@ -86,11 +86,12 @@ class ShowOrgPersonscontactListView(ListView):
                                                                                              'person__id')
         for workrecord in list:
             person = workrecord.person
-            contact = Contact.objects.filter(person=person)
+            # contact = Contact.objects.filter(person=person)
             # print(contact)
             # workrecord.certificate = list(contact)
-            # workrecord.age = Person.get_age(person)
-            # workrecord.mobile = Person.get_person_mobile(person)
+            workrecord.age = Person.get_age(person)
+            workrecord.mobile = Person.get_person_mobile(person)
+
         return list
 
 

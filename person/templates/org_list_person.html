@@ -2,7 +2,6 @@
 {% load bootstrap4 %}
 {% bootstrap_css %}
 {% load mptt_tree %}
-{% load mptt_tags %}
 
 {% block title %}人力资源{% endblock %}
 
@@ -12,7 +11,7 @@
 <div class="row flex-xl-nowrap">
   <div class="col-12 col-md-4 col-xl-4 bd-sidebar border border-white">
 
-   {% include "org_list.html" %}
+   {% tree_org %}
 
   </div>
 

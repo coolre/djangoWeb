@@ -1,7 +1,7 @@
 {% extends 'base_person.html' %}
 {% load bootstrap4 %}
 {% bootstrap_css %}
-
+{% load mptt_tree %}
 
 {% block title %}人力资源{% endblock %}
 
@@ -10,7 +10,7 @@
 
 <div class="row flex-xl-nowrap">
   <div class="col-12 col-md-4 col-xl-4 bd-sidebar border border-white">
-   {% include "org_list.html" %}
+     {% tree_org %}
   </div>
 
   <div class="col-12 col-md-8 col-xl-8 py-md-3 pl-md-5 bd-content">
@@ -20,10 +20,11 @@
         <tr>
 
           <th>姓名</th>
-        <th>电话</th>
-          <th>部门</th>
-          <th>职务</th>
-          <th>持证情况</th>
+        <th>手机</th>
+          <th>办公电话（小号）</th>
+          <th>QQ</th>
+          <th>电子邮箱</th>
+            <th>地址</th>
         </tr>
       </thead>
       <tbody>
@@ -33,9 +34,10 @@
         <tr>
           <td><a href="#">{{ contact.person }}</a></td>
             <td>{{ contact.mobile}}</td>
-          <td>{{ contact.department }} </td>
-          <td>{{ contact.post }}</td>
-            <td> {{ contact.certificate}}</td>
+          <td>{{ contact.telephone }} {{ contact.telephone_short}} </td>
+          <td>{{ contact.qq }}</td>
+            <td> {{ contact.email}}</td>
+            <td> {{ contact.address}}</td>
         </tr>
 
 

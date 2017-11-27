@@ -69,6 +69,8 @@ class Person(AbstractBaseModel):
 
     def get_person_mobile(self):
         mobile = Contact.objects.filter(person=self.id).values_list("mobile", flat=True)
+        mobile = list(mobile)
+        mobile = '、'.join(mobile)
         return mobile
 
 
