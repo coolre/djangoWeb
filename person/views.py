@@ -21,13 +21,6 @@ def index(request):
     return render(request, 'home.html', context)
 
 
-#
-# class PersonListView(ListView):
-#      model = Person
-#      template_name = 'person_list.html'
-#      context_object_name = 'persons'
-#      paginate_by = 30
-
 # show_org_person
 class ShowOrgPersonsListView(ListView):
     # model = WorkRecord
@@ -42,7 +35,7 @@ class ShowOrgPersonsListView(ListView):
         genre = nodes[1]
         # print(genre)
         context['genre'] = genre
-        # certificate = Certificate.objects.values_list('name', flat=True)
+        # certificate = certificate.objects.values_list('name', flat=True)
         # context['certificate'] = certificate
         # print(context)
         return context
@@ -97,39 +90,25 @@ class ShowOrgPersonscontactListView(ListView):
 
 
 
-from django.shortcuts import redirect
-# ShowTypeCertificateListView
-class ShowTypeCertificateListView(ListView):
-    # model = WorkRecord
-    # queryset = WorkRecord.objects.exclude(part_time='t')
-    template_name = 'certificate_type_list.html'
-    # context_object_name = 'person'
-    # pk_url_kwarg = 'name_id'
+from django.shortcuts import get_object_or_404
 
-    def get_context_data(self, **kwargs):
-        context = super(ShowTypeCertificateListView, self).get_context_data(**kwargs)
-        nodes = CertificatesType.objects.all()
-        genre = nodes[1]
-        # # # print(genre)
-        context['genre'] = genre
-        # # # certificate = Certificate.objects.values_list('name', flat=True)
-        # # # context['certificate'] = certificate
-        # print(nodes)
-        return context
+
+class TypeCertificateList(ListView):
+    model = Certificate
+    template_name = 'certificate/certificates_by_type.html'
+    pk_url_kwarg = 'CertificatesType_id'
 
     def get_queryset(self):
-        list = Certificate.objects.all()
-            # filter(name=self.kwargs['pk'])
-        # for workrecord in workrecord_list:
-        #     person = workrecord.person
-        #     certificate = Certificate.objects.filter(person=person).values_list("name__type_name", flat=True).distinct()
-        #     workrecord.certificate = list(certificate)
-        #     workrecord.age = Person.get_age(person)
-        #     workrecord.mobile= Person.get_person_mobile(person)
-        #
-        # person_list = workrecord_list.values_list("person", flat=True)
-        # workrecord.num = len(list(set(person_list)))
+        self.name = get_object_or_404(CertificatesType, id=self.kwargs['CertificatesType_id'])
+        list = Certificate.objects.filter(name__type_name=self.name)
         return list
+
+    # def get_context_data(self, **kwargs):
+    #     # Call the base implementation first to get a context
+    #     context = super(TypeCertificateList, self).get_context_data(**kwargs)
+    #     # Add in the publisher
+    #     context['num'] = self.name
+    #     return context
 
 
 # Person_Detail
@@ -165,19 +144,19 @@ def workrecord(request):
 def certificate(request):
     table = CertificateTable(Certificate.objects.all(), order_by='id')
     RequestConfig(request, paginate={'per_page': 20}).configure(table)
-    return render(request, 'person_certificate.html', {'Certificate': table})
+    return render(request, 'person_certificate.html', {'certificate': table})
 
 class CertificateDetailView(DetailView):
     model = Certificate
     template_name = 'certificate_detail.html'
-    context_object_name = 'Certificate'
+    context_object_name = 'certificate'
     pk_url_kwarg = 'Certificate_id'
 
     def get_context_data(self, **kwargs):
         context = super(CertificateDetailView, self).get_context_data(**kwargs)
         context['certificate_record_list'] = CertificateRecod.objects.filter(certificate_id=self.kwargs['Certificate_id'])
         context['certificate_photo'] = CertificatePhoto.objects.filter(certificate_id=self.kwargs['Certificate_id'])
-        # context['certificate_list'] = Certificate.objects.filter(person_id=self.kwargs['person_id'])
+        # context['certificate_list'] = certificate.objects.filter(person_id=self.kwargs['person_id'])
         # print(context)
         return context
 

@@ -1,6 +1,5 @@
 # coding=UTF-8
-from uuid import uuid4
-from datetime import date, datetime
+from datetime import datetime
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -9,20 +8,8 @@ from django.urls import reverse
 from djangoWeb.models import AbstractBaseModel
 from organization.models import (OrganizationTree, Department, Post)
 
+from .function import file_rename, calculate_age
 
-# 上传文件命名
-def file_rename(instance, filename):
-    ext = filename.split('.')[-1]
-    if instance.pk:
-        filename = '{}.{}'.format(instance.pk, ext)
-    else:
-        filename = '{}.{}'.format(uuid4().hex, ext)
-    return format(filename)
-
-# 计算年龄
-def calculate_age(born):
-    today = date.today()
-    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
 # models Person.人员
 class Person(AbstractBaseModel):
@@ -65,7 +52,6 @@ class Person(AbstractBaseModel):
 
     def get_absolute_url(self):
         return reverse('persons:detail', args=[str(self.id)])
-        # return '%d/' % self.pk
 
     def get_person_mobile(self):
         mobile = Contact.objects.filter(person=self.id).values_list("mobile", flat=True)
@@ -138,42 +124,14 @@ class WorkRecord(AbstractBaseModel):
     # def get_absolute_url(self):
     #     return reverse('PersonDetailView', args=[str(self.id)])
 
-    # def get_company_person(company_id):
-    #     data_person = Workrecord.objects.filter(company__id="company_id")
-    #     # print(data_person)
-    #     return data_person
 
 from mptt.models import MPTTModel, TreeForeignKey
 
 
-# # 架构   工作机构
-# class OrganizationTree(MPTTModel):
-#     name = models.CharField(max_length=50, unique=True)
-#     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, on_delete=models.CASCADE)
-#
-#     class MPTTMeta:
-#         order_insertion_by = ['name']
-#
-#     class Meta:
-#         verbose_name = _('组织架构')
-#         verbose_name_plural = _('组织架构')
-#
-#     def get_absolute_url(self):
-#         # return "/"
-#         # return reverse('show_genres', kwargs={'pk': self.pk, })
-#         return reverse('organization:person_list', kwargs={'pk': self.pk, })
-#
-#     def __str__(self):
-#         return "%s" % self.name
-
-
 class CertificatesType(MPTTModel):
-    type_name = models.CharField(_('证件类别'),max_length=50,  null=True, blank=True)
+    type_name = models.CharField(_('证件类别'), max_length=50,  null=True, blank=True)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, on_delete=models.CASCADE)
-    # pass
-    # type = models.CharField(_('证件类别'), max_length=100, blank=True, null=True)
-    # issue = models.CharField(_('备注'), max_length=100, blank=True, null=True)
-    #
+
     class Meta:
         verbose_name = _('证件类别')
         verbose_name_plural = _('证件类别')

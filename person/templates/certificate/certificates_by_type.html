@@ -1,0 +1,59 @@
+{% extends 'base_person.html' %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% load mptt_tree %}
+{% load certificateType_tree_tags %}
+
+{% block title %}人力资源{% endblock %}
+
+{% block content %}
+
+<div class="row flex-xl-nowrap">
+  <div class="col-12 col-md-3 col-xl-3 bd-sidebar border border-white">
+
+   {% tree_certificates_type %}
+
+
+  </div>
+
+
+  <div class="col-12 col-md-9 col-xl-9 py-md-3 pl-md-5 bd-content">
+
+      <table class="table table-sm table-hover">
+      <thead>
+        <tr>
+          <th>姓名</th>
+          <th>证件名称</th>
+          <th>证件编号</th>
+          <th>发证时间</th>
+          <th>登记时间</th>
+          <th>有效期截止时间</th>
+          <th>备注</th>
+        </tr>
+      </thead>
+      <tbody>
+
+
+ {% for list in object_list %}
+
+<tr>
+    <td><a href="{% url 'persons:detail' list.person_id %}">{{ list.person }} </a></td>
+          <td><a href="{% url 'persons:certificate_detail' list.id %}">{{ list.name| default_if_none:""  }}</a> </td>
+          <td>{{ list.number| default_if_none:"" }}</td>
+          <td>{{ list.issue_date| default_if_none:""}}</td>
+          <td>{{ list.reg_date | default_if_none:""}} </td>
+          <td>{{ list.expiry_date | default_if_none:""}}</td>
+          <td>{{ list.issue| default_if_none:""}}</td>
+       </tr>
+
+ {% endfor %}
+      </tbody>
+    </table>
+  <h3>
+  <small class="text-muted">持证人数：{{ object_list | length }}</small>
+</h3>
+  </div>
+
+</div>
+
+{% endblock %}

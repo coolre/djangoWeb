@@ -1,0 +1,6 @@
+{% for category in categories %}
+    <li class="list-group-item">
+
+<a href="{% url 'persons:certificate_type_list' category.id %} ">{{ category.type_name }}</a><span class="badge">{{ category.num_article }}</span>
+    </li>
+{% endfor %}

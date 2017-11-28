@@ -32,7 +32,7 @@
        {% for contact in object_list %}
 
         <tr>
-          <td><a href="#">{{ contact.person }}</a></td>
+          <td><a href="{% url 'persons:detail' contact.person_id %}">{{ contact.person }}</a></td>
             <td>{{ contact.mobile}}</td>
           <td>{{ contact.telephone }} {{ contact.telephone_short}} </td>
           <td>{{ contact.qq }}</td>
