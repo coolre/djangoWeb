@@ -5,7 +5,6 @@ from django.core.urlresolvers import reverse
 from djangoWeb.models import AbstractBaseModel
 
 # Create your models here.
-from treebeard.mp_tree import MP_Node
 from mptt.models import MPTTModel, TreeForeignKey
 
 

@@ -6,8 +6,6 @@ from mptt.admin import MPTTModelAdmin
 from mptt.admin import DraggableMPTTAdmin
 
 # Register your models here.
-from treebeard.admin import TreeAdmin
-from treebeard.forms import movenodeform_factory
 from .models import  OrganizationTree, Department, Post
 
 

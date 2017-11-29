@@ -18,7 +18,7 @@ from .tables import ContactTable, ContractTable, WorkrecordTable, CertificateTab
 def index(request):
     # latest_question_list = Question.objects.order_by('-pub_date')[:5]
     context = {'latest_question_list': 23}
-    return render(request, 'home.html', context)
+    return render(request, 'home/home.html', context)
 
 
 # show_org_person
@@ -278,6 +278,6 @@ def line3d():
     bar.add("2014", attr, v3, mark_line=["average"], mark_point=["max"],
             is_convert=True, yaxis_interval=0, )
 
-    # print(bar._option)
+    print(bar._option)
 
     return bar

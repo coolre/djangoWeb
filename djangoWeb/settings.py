@@ -37,14 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #
     'bootstrap4',
     'import_export',
     'django_tables2',
-    'treebeard',
     'mptt',
     'imagekit',
     'pyecharts',
-    # 'employee',
+    # 'myapp',
     'organization',
     'person',
 ]

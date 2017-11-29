@@ -5,6 +5,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 
+from mptt.models import MPTTModel, TreeForeignKey
+
 from djangoWeb.models import AbstractBaseModel
 from organization.models import (OrganizationTree, Department, Post)
 
@@ -95,8 +97,6 @@ class Employee(AbstractBaseModel):
         verbose_name = _('雇佣信息')
         verbose_name_plural = _('雇佣信息')
 
-from mptt.models import TreeForeignKey
-
 
 # WorkRecord工作记录
 class WorkRecord(AbstractBaseModel):
@@ -123,9 +123,6 @@ class WorkRecord(AbstractBaseModel):
 
     # def get_absolute_url(self):
     #     return reverse('PersonDetailView', args=[str(self.id)])
-
-
-from mptt.models import MPTTModel, TreeForeignKey
 
 
 class CertificatesType(MPTTModel):

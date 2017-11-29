@@ -1,0 +1,42 @@
+{% extends 'base_person.html' %}
+{% load bootstrap4 %}
+{% load echarts_tags %}
+{% bootstrap_css %}
+
+
+{% block title %}人力资源{% endblock %}
+
+
+{% block content %}
+
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+  <nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="#">Library</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Data</li>
+    </ol>
+  </nav>
+  <h3 class="sub-header">人员概况：</h3>
+    <p class="lead">现有员工119 人，其中自有职工11人，人事代理24人，劳务派遣11人，内部单位借入  人，借出0人。</p>
+  <p class="lead">现有员工119 人，其中自有职工11人，人事代理24人，劳务派遣11人，内部单位借入  人，借出0人。</p>
+
+   <div class="card-group">
+  <div class="card">
+    <div class="card-body">
+      <p class="card-text">{% chartsAges %}</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+      <h4 class="card-title">学历组成</h4>
+      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+</div>
+</div>
+
+{% endblock %}
