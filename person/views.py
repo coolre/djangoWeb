@@ -11,6 +11,7 @@ from pyecharts import Bar
 from djangoWeb.echarts import EchartsView
 from organization.models import OrganizationTree
 
+from .function import get_person_age
 from .models import Person, Contact, Contract, WorkRecord, Certificate, CertificateRecod, CertificatePhoto, Salary, CertificatesType
 from .tables import ContactTable, ContractTable, WorkrecordTable, CertificateTable
 
@@ -49,7 +50,7 @@ class ShowOrgPersonsListView(ListView):
             person = workrecord.person
             certificate = Certificate.objects.filter(person=person).values_list("name__type_name", flat=True).distinct()
             workrecord.certificate = list(certificate)
-            workrecord.age = Person.get_age(person)
+            workrecord.age = get_person_age(person)
             workrecord.mobile= Person.get_person_mobile(person)
 
         person_list = workrecord_list.values_list("person", flat=True)
@@ -82,7 +83,7 @@ class ShowOrgPersonscontactListView(ListView):
             # contact = Contact.objects.filter(person=person)
             # print(contact)
             # workrecord.certificate = list(contact)
-            workrecord.age = Person.get_age(person)
+            workrecord.age = get_person_age(person)
             workrecord.mobile = Person.get_person_mobile(person)
 
         return list
