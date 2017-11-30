@@ -22,18 +22,19 @@
   <p class="lead">现有员工119 人，其中自有职工11人，人事代理24人，劳务派遣11人，内部单位借入  人，借出0人。</p>
 
    <div class="card-group">
+<!-- 引入 ECharts 文件 -->
+<script src="http://echarts.baidu.com/dist/echarts.common.min.js"></script>
   <div class="card">
     <div class="card-body">
       <p class="card-text">{% chartsAges %}</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      <!--<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
     </div>
   </div>
   <div class="card">
-    <img class="card-img-top" src="..." alt="Card image cap">
     <div class="card-body">
-      <h4 class="card-title">学历组成</h4>
-      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      <!--<h4 class="card-title">学历组成</h4>-->
+      <p class="card-text">{% chartsMap %}</p>
+      <!--<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
     </div>
   </div>
 </div>

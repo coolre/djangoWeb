@@ -1,7 +1,7 @@
 # coding=UTF-8
 from django import template
 
-from pyecharts import Bar, Page, Style
+from pyecharts import Page, Style
 from pyecharts import Bar
 
 from person.models import Person
@@ -66,4 +66,28 @@ def chartsAges(context):
 
     charts =create_charts().render_embed()
     return {'echart': charts}
+
+from pyecharts import Line
+#全国地图
+@register.inclusion_tag('home/tags_charts_map.html', takes_context=True)
+def chartsMap(context):
+
+    def create_charts():
+        page = Page()
+        style = Style(
+            width=600, height=350
+        )
+        attr = ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+        v1 = [5, 20, 36, 10, 10, 100]
+        v2 = [55, 60, 16, 20, 15, 80]
+        chart = Line("折线图-默认标记", **style.init_style)
+        chart.add("商家A", attr, v1, mark_point=["average"])
+        chart.add("商家B", attr, v2, is_smooth=True,
+                  mark_line=["max", "average"], is_more_utils=True)
+        page.add(chart)
+        return page
+
+    charts = create_charts().render_embed()
+    return {'echart2': charts}
+
 

@@ -23,14 +23,14 @@ def calculate_age(born):
 
 # 根据身份证计算出生年月日
 def get_person_born(identification):
-    # data = Person.objects.get(id=person_id)
     born = datetime.strptime(str(identification[6:14]), "%Y%m%d")
     return born
 
 # 身份证计算年龄
 def get_person_age(identification):
     today = date.today()
-    born = get_person_born(identification)
+    # born = get_person_born(identification)
+    born = datetime.strptime(str(identification[6:14]), "%Y%m%d")
     age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
     return age
 

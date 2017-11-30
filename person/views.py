@@ -48,9 +48,10 @@ class ShowOrgPersonsListView(ListView):
                                                                                              'person__id')
         for workrecord in workrecord_list:
             person = workrecord.person
+            # person = Person.objects.filter(id=person)
             certificate = Certificate.objects.filter(person=person).values_list("name__type_name", flat=True).distinct()
             workrecord.certificate = list(certificate)
-            workrecord.age = get_person_age(person)
+            workrecord.age = Person.get_age(person)
             workrecord.mobile= Person.get_person_mobile(person)
 
         person_list = workrecord_list.values_list("person", flat=True)
@@ -83,7 +84,7 @@ class ShowOrgPersonscontactListView(ListView):
             # contact = Contact.objects.filter(person=person)
             # print(contact)
             # workrecord.certificate = list(contact)
-            workrecord.age = get_person_age(person)
+            workrecord.age = Person.get_age(person)
             workrecord.mobile = Person.get_person_mobile(person)
 
         return list
