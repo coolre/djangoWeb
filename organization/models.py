@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from djangoWeb.models import AbstractBaseModel
 
@@ -18,7 +18,7 @@ class OrganizationTree(MPTTModel):
 
     class Meta:
         verbose_name = _('组织架构')
-        verbose_name_plural = _('组织架构')
+        verbose_name_plural = verbose_name
 
     def get_absolute_url(self):
         # return "/"
@@ -34,11 +34,11 @@ class OrganizationTree(MPTTModel):
 class Department(AbstractBaseModel):
     name = models.CharField(max_length=100)
     order_num = models.IntegerField(default=0)
-    belong = TreeForeignKey(OrganizationTree, related_name="dep", verbose_name=_("所属机构"), blank=True, null=True)
+    belong = TreeForeignKey(OrganizationTree, related_name="dep", verbose_name=_("所属机构"), blank=True, null=True, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _('部门名称')
-        verbose_name_plural = _('部门名称')
+        verbose_name_plural = verbose_name
 
     def __str__(self):
         return self.name
@@ -50,7 +50,7 @@ class Post(AbstractBaseModel):
 
     class Meta:
         verbose_name = _('岗位名称')
-        verbose_name_plural = _('岗位名称')
+        verbose_name_plural = verbose_name
 
     def __str__(self):
         return self.name

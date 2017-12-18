@@ -1,9 +1,10 @@
 # coding: utf-8
-from django.shortcuts import render
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.decorators import login_required, permission_required
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import TemplateView
+from django.shortcuts import render
 
 from django_tables2 import RequestConfig
 from pyecharts import Bar
@@ -16,6 +17,8 @@ from .models import Person, Contact, Contract, WorkRecord, Certificate, Certific
 from .tables import ContactTable, ContractTable, WorkrecordTable, CertificateTable
 
 # index page
+@login_required(login_url='/accounts/login/')
+# @permission_required('polls.can_vote', login_url='/loginpage/')
 def index(request):
     # latest_question_list = Question.objects.order_by('-pub_date')[:5]
     context = {'latest_question_list': 23}

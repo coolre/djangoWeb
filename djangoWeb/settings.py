@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for djangoWeb project.
 
@@ -44,6 +45,8 @@ INSTALLED_APPS = [
     'mptt',
     'imagekit',
     'pyecharts',
+    # 'organizations',
+    # 'guardian',
     # 'myapp',
     'organization',
     'person',
@@ -163,3 +166,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'static/media')
 #     # Label class to use in horizontal forms
 #     'horizontal_label_class': 'col-md-3',
 # }
+# INVITATION_BACKEND = 'myapp.backends.MyInvitationBackend'
+# REGISTRATION_BACKEND = 'myapp.backends.MyRegistrationBackend'
+# ORGS_SLUGFIELD = 'django_extensions.db.fields.AutoSlugField'

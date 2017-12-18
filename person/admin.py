@@ -92,12 +92,12 @@ class ContractResource(resources.ModelResource):
 
     class Meta:
         model = Contract
-        fields = ('id', 'person', 'company')
-        export_order = ('id', 'company', 'person', 'type', 'Contract_start_date', 'Contract_end_date')
+        fields = ('id', 'person', 'company','start_date', 'end_date')
+        export_order = ('id', 'company', 'person', 'type', 'start_date', 'end_date')
 
 class ContractAdmin(ImportExportModelAdmin):
-    list_display = ('company', 'person', 'type', 'Contract_start_date', 'Contract_end_date')
-    list_filter = ('type', 'Contract_end_date')
+    list_display = ('company', 'person', 'type', 'start_date', 'end_date')
+    list_filter = ('type','company', 'start_date')
     search_fields = ('person__name',)
     resource_class = ContractResource
 

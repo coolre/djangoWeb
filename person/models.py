@@ -35,7 +35,7 @@ class Person(AbstractBaseModel):
 
     class Meta:
         verbose_name = _('人员')
-        verbose_name_plural = _('人员')
+        verbose_name_plural = verbose_name
 
     def __str__(self):
         return '%s' % self.name
@@ -74,7 +74,7 @@ class Contact(AbstractBaseModel):
 
     class Meta:
         verbose_name = _('联系方式')
-        verbose_name_plural = _('联系方式')
+        verbose_name_plural = verbose_name
 
     # def get_absolute_url(self):
     #     return '%d/' % self.pk
@@ -95,7 +95,7 @@ class Employee(AbstractBaseModel):
 
     class Meta:
         verbose_name = _('雇佣信息')
-        verbose_name_plural = _('雇佣信息')
+        verbose_name_plural = verbose_name
 
 
 # WorkRecord工作记录
@@ -112,7 +112,7 @@ class WorkRecord(AbstractBaseModel):
 
     class Meta:
         verbose_name = _('工作经历')
-        verbose_name_plural = _('工作经历')
+        verbose_name_plural = verbose_name
 
     def __str__(self):
         return '%s' % self.person
@@ -131,7 +131,7 @@ class CertificatesType(MPTTModel):
 
     class Meta:
         verbose_name = _('证件类别')
-        verbose_name_plural = _('证件类别')
+        verbose_name_plural = verbose_name
 
     def __str__(self):
         return '%s' % self.type_name
@@ -148,7 +148,7 @@ class Certificate(AbstractBaseModel):
 
     class Meta:
         verbose_name = _('证件')
-        verbose_name_plural = _('证件')
+        verbose_name_plural = verbose_name
 
     def __str__(self):
         return '%s' % (self.name)
@@ -168,7 +168,7 @@ class CertificateRecod(AbstractBaseModel):
 
     class Meta:
         verbose_name = _('证件使用记录')
-        verbose_name_plural = _('证件使用记录')
+        verbose_name_plural = verbose_name
 
     def __str__(self):
         return '%s' % self.certificate
@@ -195,7 +195,7 @@ class CertificatePhoto(AbstractBaseModel):
 
     class Meta:
         verbose_name = _('证件图片')
-        verbose_name_plural = _('证件图片')
+        verbose_name_plural = verbose_name
 
     def __str__(self):
         return '%s' % self.certificate
@@ -209,13 +209,13 @@ class Contract(AbstractBaseModel):
     person = models.ForeignKey(Person, on_delete=models.CASCADE, verbose_name=_("乙方"))
     company = TreeForeignKey(OrganizationTree, on_delete=models.CASCADE, verbose_name=_("甲方"))
     type = models.CharField(_('合同类型'), max_length=10, choices=TYPE_CHOICES, default='0')
-    Contract_start_date = models.DateField(_("开始时间"))
-    Contract_end_date = models.DateField(_("结束时间"), blank=True, null=True)
+    start_date = models.DateField(_("开始时间"))
+    end_date = models.DateField(_("结束时间"), blank=True, null=True)
     photo = models.ForeignKey(Certificate, on_delete=models.CASCADE, verbose_name=_("合同扫描件"), blank=True, null=True)
 
     class Meta:
         verbose_name = _('劳动合同')
-        verbose_name_plural = _('劳动合同')
+        verbose_name_plural = verbose_name
 
     def __str__(self):
         return '%s' % self.person
@@ -276,7 +276,7 @@ class TechnicalTitles(AbstractBaseModel):
 
     class Meta:
         verbose_name = _('技术职称')
-        verbose_name_plural = _('技术职称')
+        verbose_name_plural = verbose_name
 
     def __str__(self):
         return '%s' % self.person
@@ -323,7 +323,7 @@ class Salary(AbstractBaseModel):
 
     class Meta:
         verbose_name = _('薪资发放')
-        verbose_name_plural = _('薪资发放')
+        verbose_name_plural = verbose_name
 
     def __str__(self):
         return '%s' % self.pay_money

@@ -11,7 +11,7 @@ from . import views
 # from .views import （index, PersonDetailView, contact, contract, workrecord, certificate, CertificateDetailView, SalaryChartsView, SalaryBarView, ShowOrgPersonsListView, ShowOrgPersonscontactListView, ShowTypeCertificateListView）
 
 
-# app_name = 'person'
+app_name = 'persons'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     # url(r'^$', PersonListView.as_view(), name='list'),
